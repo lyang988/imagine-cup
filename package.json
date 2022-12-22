@@ -1,0 +1,20 @@
+{
+  "name": "imaginecup",
+  "version": "1.0.0",
+  "description": "Imagine Cup project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Imagine"
+  ],
+  "author": "lydia and atto",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "hbs": "^4.2.0",
+    "html": "^1.0.0",
+    "mysql": "^2.18.1"
+  }
+}
