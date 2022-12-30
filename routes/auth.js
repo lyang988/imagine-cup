@@ -149,7 +149,7 @@ router.get('/logout', function (req, res) {
 
 router.get('/test', function (req, res) {
     if (req.session.isAuthenticated) {
-        res.send("Done");
+        res.send(`Done: ${req.session.account.name}`);
     } else {
         res.send("Not done");
     }
