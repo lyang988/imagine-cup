@@ -1,0 +1,76 @@
+*, .p{
+    font-family:'Monaco';
+}
+.background {
+    background-image: linear-gradient(to right, rgb(212, 255, 241),rgb(223, 212, 255));
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+    /*background-image: url("/images/sky.jpg")*/
+}
+.heading li{
+    /*font-family: sans-serif;*/
+    display: inline-block;
+    /*background-color: white;*/
+    background-image: linear-gradient(to right, rgb(212, 255, 241),rgb(223, 212, 255));
+    color:  rgb(0, 3, 153);
+    width: 100px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 5px;
+}
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #BCC8F1;
+}
+.table tbody td, .table tbody th {
+    background-color: #DDE4F8;
+}
+.table thead td, .table thead th {
+    background-color: #6A9FC8;
+}
+.progress, .progress progress-bar {
+    color: #6A9FC8;
+}
+.heading li a{
+    display: block;
+    text-decoration: none;
+    color: rgb(0, 3, 153);
+}
+.links{
+    width:100%;
+    background-color: black;
+    color: white;
+    margin:auto;
+    background: black;
+    background: rgba(9, 11, 110, 0.25);
+    /*opacity: .5;*/
+    /*padding: 10px 20px;*/
+}
+.links li:hover{
+    background: white;
+    background: rgba(9, 11, 110, 0.5);
+}
+.links li{
+    text-align: center;
+    display: block;
+    margin:auto;
+}
+.links li a{
+    /*color: rgb(58, 52, 168);*/
+    color: pink;
+    text-decoration: none;
+    display: block;
+}
+.heading{
+    background-image: linear-gradient(to right, rgba(255, 102, 255,.5),rgba(255, 204, 239,.9));
+    padding: 5px;
+}
+img {
+  border-radius: 8px;
+  display: block;
+  margin: auto;
+}

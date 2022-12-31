@@ -6,7 +6,12 @@ module.exports =  function(app){
     app.get("/def", login.def)
 
     app.get("/", function(req,res){
-        res.sendFile(path.join(viewpath, 'homepage.html'));
+        if(req.session.isAuthenticated){
+            res.sendFile(path.join(viewpath, 'homepage.html'));
+        } else {
+            res.sendFile(path.join(viewpath, 'plslogin.html'));
+        }
+        
     })
 }
 

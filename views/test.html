@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Multipage template - jQuery Mobile: Design and Develop</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+    </script>
+        <script type="text/javascript" src="assets/js/ui.js">
+    </script>
+    </head>
+<body class="container">
+    <div data-role="page" id="page-one" data-title="Page 1">
+        <div data-role="header">
+            <h1>Page 1</h1>
+        </div>
+        <div data-role="content">
+            <p>Here are two functions that print the bigger of the two arguments: </p> 
+            <p>Function 1:</p>
+            <code>
+                def print_bigger(a, b):<br>  
+                if a > b:<br>  
+                &emsp;print(a)<br>
+                else:<br>
+                &emsp;print(b)
+            </code>
+
+            <p>------</p> 
+            <p>Function 2:</p>
+            <code>
+                java.io.*; <br>
+                void printBigger(int a, int b){<br>
+                    &emsp;if (a > b) {  <br>
+                    &emsp;&emsp;System.out.println(a); }<br>
+                    &emsp;else {  <br>
+                    &emsp;&emsp;System.out.println(b); } 
+                <br>}
+            </code> 
+
+
+            <p> Notice that the overall structure of the code is very similar, but the specific syntax is quite different. For instance, instead of using colons and indentation, Java uses curly brackets (&lsquo;{&lsquo;, &lsquo;}&rsquo;) to specify function and if-statement bodies. Also, statements in Java end in a semicolon (&lsquo;;&rsquo;). There are some other big differences that we will explore soon, but these two are the most visible - and easy to forget!</p>
+            <p><a href="#page-two">Link to page 2</a></p>
+        </div>
+        <div data-role="footer">
+            abc
+        </div>
+    </div>
+    <div data-role="page" id="page-two" data-title="Page 2">
+        <div data-role="header">
+            <h1>Page 2</h1>
+        </div>
+        <div data-role="content">
+            <p>Body copy for page 2</p>
+            <a href="#page-one">Link to page 1</a>
+        </div>
+        <div data-role="footer">
+            abc
+        </div>
+    </div>
+</body>
+</html>

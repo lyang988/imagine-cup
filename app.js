@@ -31,12 +31,12 @@ require('./routes/routes')(app);
 app.use('/auth', authRouter);
 
 app.set('views', __dirname + '/views');
+app.use(express.static(path.join(__dirname,'static')))
+
 // Default Catch 
 app.get("/*", function(req,res){
     res.send("Not a valid page");
 })
-
-app.use(express.static(path.join(__dirname,'static')))
 
 // -------------- listener -------------- //
 // // The listener is what keeps node 'alive.' 
