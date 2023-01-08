@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = new Sequelize('salmon', 'azureadmin', process.env.SQL_PASSWORD, {
     host: 'llyaal.mysql.database.azure.com',
@@ -10,10 +10,46 @@ const sequelize = new Sequelize('salmon', 'azureadmin', process.env.SQL_PASSWORD
     }
 });
 
-sequelize.authenticate().then(() => {
-    console.log('Database connection has been established successfully.');
-}).catch((error) => {
-    console.error('Unable to connect to the database: ', error);
+const Page = sequelize.define('Page', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    page: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    pageData: {
+        type: DataTypes.JSON,
+        allowNull: false
+    }
 });
 
-module.exports = sequelize;
+const Lesson = sequelize.define('Lesson', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    lang1: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    lang2: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    unit: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+});
+
+Lesson.hasMany(Page, {foreignKey: 'lessonId'});
+
+module.exports = {sequelize: sequelize, Page: Page, Lesson: Lesson};

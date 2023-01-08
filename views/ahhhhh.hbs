@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+   <head>
+       <link rel="stylesheet" type="text/css" href="/stylesheets/ahhhhh.css">
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   </head>
+   <body>
+       <header>
+           yay temp navbar: u are in {{lang1}} -> {{lang2}} studying {{lessonname}} in Unit {{unitnumber}}
+       </header>
+       {{#each arr}}
+           {{#if this.istable}}
+           <table class="table table-hover" style="padding: 20px;">
+<thead>
+ <tr>
+   {{#each this.array.[0]}}
+     <th>{{@key}}</th>
+   {{/each}}
+ </tr>
+</thead>
+<tbody>
+ {{#each this.array}}
+   <tr>
+       {{#each this}}
+       <td>{{this}}</td>
+     {{/each}}
+   </tr>
+ {{/each}}
+</tbody>
+</table>
+           {{else}}
+           {{#if iscode}}
+           <pre><div class = {{this.type}}>{{this.text}}</div></pre>
+           {{else}}
+           <div class = {{this.type}}>{{this.text}}</div>
+           {{/if}}
+           {{/if}}
+       {{/each}}
+   </body>
+</html>
+ 
+
