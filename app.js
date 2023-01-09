@@ -20,7 +20,8 @@ db.sequelize.authenticate().then(() => {
             lang1: "Python",
             lang2: "Java",
             unit: 1,
-            name: "Semicolons and Brackets"
+            name: "Semicolons and Brackets",
+            numPages: 1
         }).then((lesson) => {
             db.Page.create({
                 page: 1,

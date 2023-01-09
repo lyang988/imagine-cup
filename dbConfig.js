@@ -18,7 +18,10 @@ const Page = sequelize.define('Page', {
     },
     page: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            min: 1
+        }
     },
     pageData: {
         type: DataTypes.JSON,
@@ -27,28 +30,47 @@ const Page = sequelize.define('Page', {
 });
 
 const Lesson = sequelize.define('Lesson', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        lang1: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        lang2: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        unit: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                min: 1
+            }
+        },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        numPages: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                min: 1
+            }
+        }
     },
-    lang1: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    lang2: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    unit: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false
+    {
+        indexes: [
+            {
+                unique: false,
+                fields: ['lang1', 'lang2']
+            }
+        ]
     }
-});
+);
 
 Lesson.hasMany(Page, {foreignKey: 'lessonId'});
 Page.belongsTo(Lesson, {foreignKey: 'lessonId'});
@@ -65,8 +87,43 @@ const User = sequelize.define('User', {
     },
     email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true,
+        validate: {
+            isEmail: true
+        }
     }
 });
 
-module.exports = {sequelize: sequelize, Page: Page, Lesson: Lesson};
+const UserProgress = sequelize.define('UserProgress', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    currentPage: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+            min: 1,
+        }
+    },
+    completed: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+    }
+});
+
+User.hasMany(UserProgress);
+UserProgress.belongsTo(User);
+
+Lesson.hasMany(UserProgress);
+UserProgress.belongsTo(Lesson);
+
+module.exports = {
+    sequelize: sequelize,
+    Page: Page,
+    Lesson: Lesson,
+    User: User,
+    UserProgress: UserProgress
+};
