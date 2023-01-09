@@ -14,7 +14,7 @@ const db = require('./dbConfig');
 
 db.sequelize.authenticate().then(() => {
     console.log("Database connected");
-    db.sequelize.sync({alter: true}).then(() => {
+    db.sequelize.sync({force: true}).then(() => {
         console.log("Database synced");
     }).catch((err) => {
         console.log("Error syncing database: " + err);

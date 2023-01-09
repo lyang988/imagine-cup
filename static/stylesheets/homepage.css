@@ -1,6 +1,9 @@
 *, .p{
     font-family:'Monaco';
 }
+nav {
+    background-color: #D3F2FF;
+}
 .background {
     background-image: linear-gradient(to right, rgb(212, 255, 241),rgb(223, 212, 255));
     -webkit-background-size: cover;

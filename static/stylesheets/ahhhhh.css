@@ -1,3 +1,12 @@
+h1 {
+    background: #5495C9;
+}
+body{
+    padding-top: 60px;
+}
+.mainpage{
+    padding: 2%;
+}
 .code {
     background: #f4f4f4;
     border: 1px solid #ddd;
@@ -14,6 +23,14 @@
     display: block;
     word-wrap: break-word;
 }
-.notcode {
-    color: red;
+.regular {
+    color: black;
+    display: inline;
+}
+.codetext{
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    color: black;
+    font-family: monospace;
+    display: inline;
 }
