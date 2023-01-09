@@ -1,6 +1,9 @@
 h1 {
     background: #5495C9;
 }
+body{
+    padding-top: 60px;
+}
 .mainpage{
     padding: 2%;
 }
