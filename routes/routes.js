@@ -1,6 +1,8 @@
 var path = require('path');
 var authRouter = require("./auth");
 
+var db = require("../dbConfig");
+
 function indexEndpoint(req,res){
     if (req.session.isAuthenticated) {
         res.sendFile('homepage.html', {root: path.join(__dirname, '../views')});
@@ -20,23 +22,20 @@ function hbsTest(req,res){
     res.render('hbstest', obj);
 }
 
-function aTest(req,res){
+async function aTest(req, res, next){    
+    var pages = await db.Page.findAll({
+        include: {
+            model: db.Lesson
+        }
+    });
+
     var obj = {
-        lang1: "Python",
-        lang2: "Java",
-        lessonname: "Semicolons and Brackets",
-        unitnumber: "1",
-        arr: [{"type": "notcode", "text": "Here are two functions that print the bigger of the two arguments:"},
-              {"iscode":true,"type": "code", "text": "def print_bigger(a, b):\n    if a > b:\n        print(a)\n    else:\n        print(b)"},
-              {"iscode":true,"type": "code", "text": "import java.io.*;\n\nvoid printBigger(int a, int b){\n    if (a > b) {\n        System.out.println(a); \n    } else {\n        System.out.println(b); \n    } \n}"},
-              {"type": "notcode", "text": "Notice that the overall structure of the code is very similar, but the specific syntax is quite different. For instance, instead of using colons and indentation, Java uses curly brackets (‘{‘, ‘}’) to specify function and if-statement bodies. Also, statements in Java end in a semicolon (‘;’). There are some other big differences that we will explore soon, but these two are the most visible - and easy to forget!"},
-              {"type": "notcode", "text": "Here’s a summary of these key changes:"},
-              {"istable":true, "type": "table", "array": [{" ":"Code Blocks and Control Flow","Python":"Use colons and indentation","Java":"Use opening and closing curly brackets (<code>{</code>, <code>}</code>)"},
-              {" ":"Semicolons Ending Statements","Python":"Unnecessary (and proscribed)","Java":"Necessary"}
-              ]}
-        ]
-     };     
-    
+        lang1: pages[0].Lesson.lang1,
+        lang2: pages[0].Lesson.lang2,
+        lessonname: pages[0].Lesson.name,
+        unitnumber: pages[0].Lesson.unit,
+        arr: pages[0].pageData.arr
+    };
 
     res.render('ahhhhh', obj);
 }
