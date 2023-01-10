@@ -5,7 +5,15 @@ var db = require("../dbConfig");
 
 function indexEndpoint(req,res){
     if (req.session.isAuthenticated) {
-        res.sendFile('homepage.html', {root: path.join(__dirname, '../views')});
+        var obj = {
+            "lang1": "Python",
+            "lang2": "Java",
+            "info":[
+                {"unitnumber": 1, "unitlessons": [{"lesson":"Semicolons and Brackets", "completed": true, "num":1}, {"lesson":"Simple Datatypes: Ints", "completed": false, "num":2}]},
+                {"unitnumber": 2, "unitlessons": [{"lesson":"Printing Simple Strings", "completed": false, "num":3}, {"lesson":"Doubles Floats and Longs", "completed": false, "num":4}]}
+            ]
+        }
+        res.render('homepage', obj)
     } else {
         res.sendFile('plslogin.html', {root: path.join(__dirname, '../views')});
     }
@@ -22,19 +30,36 @@ function hbsTest(req,res){
     res.render('hbstest', obj);
 }
 
-async function aTest(req, res, next){    
-    var pages = await db.Page.findAll({
-        include: {
-            model: db.Lesson
+async function aTest(req, res, next){ 
+    var que = req.query
+    console.log(que)
+    var lesson = await db.Lesson.findOne({
+        where: {
+            lang1: que.lang1,
+            lang2: que.lang2,
+            num: que.num
         }
     });
 
+    var progresses = await lesson.getUserProgresses({where: {UserId: req.session.user.id}})
+    var progress;
+    if(progresses.length==0){
+        progress = await db.UserProgress.create({currentPage: 1, completed: false}) 
+        await req.session.user.addUserProgress(progress)
+        await lesson.addUserProgress(progress)
+    } else{
+        progress = progresses[0]
+    }
+
+    var pages = await lesson.getPages({where: {page: progress.currentPage}})
+    var page = pages[0]
+
     var obj = {
-        lang1: pages[0].Lesson.lang1,
-        lang2: pages[0].Lesson.lang2,
-        lessonname: pages[0].Lesson.name,
-        unitnumber: pages[0].Lesson.unit,
-        arr: pages[0].pageData.arr
+        lang1: lesson.lang1,
+        lang2: lesson.lang2,
+        lessonname: lesson.name,
+        unitnumber: lesson.unit,
+        arr: page.pageData.arr
     };
 
     res.render('ahhhhh', obj);

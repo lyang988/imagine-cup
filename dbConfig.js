@@ -50,6 +50,13 @@ const Lesson = sequelize.define('Lesson', {
                 min: 1
             }
         },
+        num:{ 
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                min: 1
+            }
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false

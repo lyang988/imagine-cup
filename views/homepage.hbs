@@ -6,10 +6,11 @@
        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
        <link rel="stylesheet" href="/stylesheets/prism.css">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
    </head>
    <body>
        <header>
-           <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" style="background-color: #D3F2FF; height: 60px">
+           <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" style="height: 60px">
             <div class="container-fluid">
               <a class="navbar-brand" href="/">Anadromy</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,46 +46,38 @@
               </div>
             </div>
           </nav>
-          <h1>Unit {{unitnumber}}: {{lessonname}}</h1>
         </header>
         <div class="mainpage">
-        {{#each arr}}
-           {{#if this.istable}}
-           <table class="table table-hover" style="padding: 20px;">
-              <thead>
-              <tr>
-                {{#each this.array.[0]}}
-                  <th>{{@key}}</th>
-                {{/each}}
-              </tr>
-              </thead>
-              <tbody>
-              {{#each this.array}}
+        <table class="table table-hover" style="padding: 20px;">
+            {{#each this.info}}
+                <thead>
                 <tr>
-                    {{#each this}}
-                    <td>{{this}}</td>
-                  {{/each}}
+                    <th>Unit {{this.unitnumber}}</th>
+                    <th scope="col"></th>
+                    <th scope="col">Unit Review</th>
                 </tr>
-              {{/each}}
-              </tbody>
-              </table>
-           {{else}}
-           {{#if iscode}}
-           <pre><code class = "language-{{this.language}} {{this.type}}">{{this.text}}</code></pre>
-           {{else}}
-           {{#if iscodetext}}
-           <code class =  "language-{{this.language}} {{this.type}}">{{this.text}}</code>
-           {{else}}
-           {{#if islinebreak}}
-             <p></p>
-           {{else}}
-           <div class = {{this.type}}>{{this.text}}</div>
-           {{/if}}
-           {{/if}}
-           {{/if}}
-           {{/if}}
-       {{/each}}
+                </thead>
+                <tbody>
+                    {{#each this.unitlessons}}
+                        <tr>
+                            <td>{{this.num}}</td>
+                            <td class = "lesson" id="{{this.num}}">{{this.lesson}}</td>
+                            {{#if this.completed}}
+                                <td>completed</td>
+                            {{else}}
+                                <td>not completed</td>
+                            {{/if}}
+                        </tr>
+                    {{/each}}
+                </tbody>
+            {{/each}}
+        </table>
     </div>
+    <script type="text/javascript">
+        const lang1 = "{{lang1}}"
+        const lang2 = "{{lang2}}"
+    </script>
     <script src="/scripts/prism.js"></script>
+    <script src="/scripts/homepage.js"></script>
    </body>
 </html>

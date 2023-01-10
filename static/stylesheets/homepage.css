@@ -1,16 +1,16 @@
-*, .p{
-    font-family:'Monaco';
+html, body{
+    background-image: linear-gradient(to bottom, #FEECEC,#FCC5C5);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    height: 100%;
+}
+.p{
+    font-family: 'Arial';
 }
 nav {
-    background-color: #D3F2FF;
-}
-.background {
-    background-image: linear-gradient(to right, rgb(212, 255, 241),rgb(223, 212, 255));
-    -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-    /*background-image: url("/images/sky.jpg")*/
+    background-image: linear-gradient(to bottom, #D3F2FF 75%,#BEE9FC);;
 }
 .heading li{
     /*font-family: sans-serif;*/
@@ -31,6 +31,7 @@ nav {
 }
 .table tbody td, .table tbody th {
     background-color: #DDE4F8;
+    color: black;
 }
 .table thead td, .table thead th {
     background-color: #6A9FC8;
