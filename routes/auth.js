@@ -1,10 +1,12 @@
 /*
- * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Copyright (partially) (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License.
  */
 
 var express = require('express');
 var msal = require('@azure/msal-node');
+
+var db = null;
 
 var {
     msalConfig,
@@ -106,6 +108,7 @@ router.get('/login', async function (req, res, next) {
     return redirectToAuthCodeUrl(req, res, next, authCodeUrlRequestParams, authCodeRequestParams)
 });
 
+// URL to which the user will be redirected to after they sign in and consent to scopes
 router.post('/redirect', async function (req, res, next) {
     if (req.body.state) {
         const state = JSON.parse(cryptoProvider.base64Decode(req.body.state));
@@ -121,6 +124,23 @@ router.post('/redirect', async function (req, res, next) {
                 req.session.idToken = tokenResponse.idToken;
                 req.session.account = tokenResponse.account;
                 req.session.isAuthenticated = true;
+
+                // Gets the user associated wiht the homeAccountId
+                const homeAccountId = tokenResponse.account.homeAccountId;
+                var user = await db.User.findOne({
+                    where: { msAccountId: homeAccountId }
+                });
+
+                if (!user) {
+                    // If user doesn't exist, create a new user
+                    user = await db.User.create({
+                        name: tokenResponse.account.name,
+                        msAccountId: homeAccountId
+                    });
+                    console.log('User created');
+                }
+
+                req.session.user = user;
 
                 res.redirect(state.redirectTo);
             } catch (error) {
@@ -155,4 +175,8 @@ router.get('/test', function (req, res) {
     }
 });
 
-module.exports = router;
+module.exports = function (dbInjected) {
+    db = dbInjected;
+
+    return router;
+}

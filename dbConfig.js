@@ -92,13 +92,10 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    email: {
+    msAccountId: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
-        validate: {
-            isEmail: true
-        }
+        unique: true
     }
 });
 

@@ -1,7 +1,7 @@
 var path = require('path');
-var authRouter = require("./auth");
+var authRouterFunc = require("./auth");
 
-var db = require("../dbConfig");
+var db = null;
 
 function indexEndpoint(req,res){
     if (req.session.isAuthenticated) {
@@ -65,8 +65,10 @@ async function aTest(req, res, next){
     res.render('ahhhhh', obj);
 }
 
-module.exports = function(app){
-    app.use('/auth', authRouter);
+module.exports = function(app, dbInjected) {
+    db = dbInjected;
+
+    app.use('/auth', authRouterFunc(db));
 
     app.get("/", indexEndpoint);
     app.get("/hbsTest", hbsTest);

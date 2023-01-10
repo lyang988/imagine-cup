@@ -78,7 +78,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname,'static')));
 
-require('./routes/routes')(app);
+require('./routes/routes')(app, db);
 
 // -------------- listener -------------- //
 // // The listener is what keeps node 'alive.' 
