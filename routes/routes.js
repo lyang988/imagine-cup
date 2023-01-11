@@ -3,8 +3,10 @@ var authRouterFunc = require("./auth");
 
 var db = null;
 
-function indexEndpoint(req,res){
+async function indexEndpoint(req, res, next){
     if (req.session.isAuthenticated) {
+        var lessonPlan = await db.LessonPlan.findByPk(req.session.selectedLessonPlanId);
+
         var obj = {
             "lang1": "Python",
             "lang2": "Java",
@@ -31,32 +33,47 @@ function hbsTest(req,res){
 }
 
 async function aTest(req, res, next){ 
-    var que = req.query
-    console.log(que)
-    var lesson = await db.Lesson.findOne({
+    var que = req.query;
+
+    var lessonPlan = await db.LessonPlan.findOne({
         where: {
             lang1: que.lang1,
-            lang2: que.lang2,
+            lang2: que.lang2
+        }
+    });
+
+    if (!lessonPlan) return next(new Error("Lesson plan not found"));
+
+    var lesson = await db.Lesson.findOne({
+        where: {
+            lessonPlanId: lessonPlan.id,
             num: que.num
         }
     });
 
-    var progresses = await lesson.getUserProgresses({where: {UserId: req.session.user.id}})
+    if (!lesson) return next(new Error("Lesson not found"));
+
+    var progresses = await lesson.getUserProgresses({where: {UserId: req.session.userId}});
     var progress;
-    if(progresses.length==0){
-        progress = await db.UserProgress.create({currentPage: 1, completed: false}) 
-        await req.session.user.addUserProgress(progress)
-        await lesson.addUserProgress(progress)
-    } else{
-        progress = progresses[0]
+    if(progresses.length === 0){
+        progress = await db.UserProgress.create({currentPage: 1, completed: false});
+        user = await db.User.findByPk(req.session.userId);
+        await user.addUserProgress(progress);
+        await lesson.addUserProgress(progress);
+    } else if (progresses.length === 1) {
+        progress = progresses[0];
+    } else {
+        return next(new Error("Too many progresses"));
     }
 
-    var pages = await lesson.getPages({where: {page: progress.currentPage}})
-    var page = pages[0]
+    var pages = await lesson.getPages({where: {page: progress.currentPage}});
+    if (pages.length !== 1) return next(new Error("Not one page"));
+
+    var page = pages[0];
 
     var obj = {
-        lang1: lesson.lang1,
-        lang2: lesson.lang2,
+        lang1: lessonPlan.lang1,
+        lang2: lessonPlan.lang2,
         lessonname: lesson.name,
         unitnumber: lesson.unit,
         arr: page.pageData.arr
