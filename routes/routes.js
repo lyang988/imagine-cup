@@ -5,16 +5,50 @@ var db = null;
 
 async function indexEndpoint(req, res, next){
     if (req.session.isAuthenticated) {
-        var lessonPlan = await db.LessonPlan.findByPk(req.session.selectedLessonPlanId);
+        /*var lessonPlan = await db.LessonPlan.findByPk(req.session.selectedLessonPlanId);
+
+        if (!lessonPlan) return res.redirect("/changeLanguage");*/
+
+        var lessonPlan = await db.LessonPlan.findOne();
+
+        var lessons = await lessonPlan.getLessons({
+            order: [
+                ['unit', 'ASC'],
+                ['num', 'ASC']
+            ],
+            include: {
+                model: db.UserProgress,
+                where: { userId: req.session.userId },
+                required: false
+            }
+        });
+
+        info = [];
+        currentUnit = [];
+        previousUnit = 1;
+        for (var lesson of lessons) {
+            var unit = lesson.unit;
+            if (unit !== previousUnit) {
+                info.push({unitnumber: previousUnit, unitlessons: currentUnit});
+                currentUnit = [];
+            }
+
+            var completed = false;
+            if (lesson.UserProgresses.length !== 0) {
+                completed = lesson.UserProgresses[0].completed;
+            }
+
+            currentUnit.push({lesson: lesson.name, completed: completed, num: lesson.num});
+        }
+
+        if (currentUnit.length !== 0) info.push({unitnumber: unit, unitlessons: currentUnit});
 
         var obj = {
-            "lang1": "Python",
-            "lang2": "Java",
-            "info":[
-                {"unitnumber": 1, "unitlessons": [{"lesson":"Semicolons and Brackets", "completed": true, "num":1}, {"lesson":"Simple Datatypes: Ints", "completed": false, "num":2}]},
-                {"unitnumber": 2, "unitlessons": [{"lesson":"Printing Simple Strings", "completed": false, "num":3}, {"lesson":"Doubles Floats and Longs", "completed": false, "num":4}]}
-            ]
-        }
+            "lang1": lessonPlan.lang1,
+            "lang2": lessonPlan.lang2,
+            "info": info
+        };
+
         res.render('homepage', obj)
     } else {
         res.sendFile('plslogin.html', {root: path.join(__dirname, '../views')});
