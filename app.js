@@ -17,9 +17,12 @@ db.sequelize.authenticate().then(() => {
     console.log("Database connected");
     db.sequelize.sync({force: true}).then(() => {
         console.log("Database synced");
-        db.Lesson.create({
+        db.LessonPlan.create({
             lang1: "Python",
-            lang2: "Java",
+            lang2: "Java"
+        }).then((lessonPlan) => {
+        db.Lesson.create({
+            lessonPlanId: lessonPlan.id,
             unit: 1,
             num: 1,
             name: "Semicolons and Brackets",
@@ -53,6 +56,9 @@ db.sequelize.authenticate().then(() => {
         }).catch((err) => {
             console.log("Error creating lesson: " + err);
         });
+    }).catch((err) => {
+        console.log("Error creating lesson plan: " + err);
+    });
     }).catch((err) => {
         console.log("Error syncing database: " + err);
     });

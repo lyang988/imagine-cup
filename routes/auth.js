@@ -140,7 +140,8 @@ router.post('/redirect', async function (req, res, next) {
                     console.log('User created');
                 }
 
-                req.session.user = user;
+                req.session.userId = user.id;
+                req.session.selectedLessonPlanId = user.selectedLessonPlanId;
 
                 res.redirect(state.redirectTo);
             } catch (error) {
