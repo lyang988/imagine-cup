@@ -1,6 +1,7 @@
 var express = require('express');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
+var hbs = require('express-handlebars')
 
 require('dotenv').config();
 
@@ -75,8 +76,15 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
 app.set('views', __dirname + '/views');
-app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname,'static')));
+
+app.engine( 'hbs', hbs.engine( { 
+    extname: 'hbs', 
+    defaultLayout: 'homepage', 
+    layoutsDir: __dirname + '/views/',
+    partialsDir: __dirname + '/views/partials/'
+  } ) );
+  app.set('view engine', 'hbs');
 
 require('./routes/routes')(app, db);
 
