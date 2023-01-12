@@ -174,6 +174,10 @@ async function setLanguage(req, res, next) {
     res.sendStatus(200);
 }
 
+async function multipleChoiceAnswer(req, res, next) {
+    var que = req.query;
+}
+
 module.exports = function(app, dbInjected) {
     db = dbInjected;
 

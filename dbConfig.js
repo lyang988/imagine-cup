@@ -130,11 +130,50 @@ UserProgress.belongsTo(User);
 Lesson.hasMany(UserProgress);
 UserProgress.belongsTo(Lesson);
 
+const Question = sequelize.define('Question', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    type: {
+        type: DataTypes.ENUM("multipleChoice", "code"),
+        allowNull: false
+    },
+    data: {
+        type: DataTypes.JSON,
+        allowNull: false
+    }
+});
+
+Lesson.hasMany(Question, {foreignKey: 'lessonId'});
+Question.belongsTo(Lesson, {foreignKey: 'lessonId'});
+
+const UserAnswer = sequelize.define('UserAnswer', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    data: {
+        type: DataTypes.JSON,
+        allowNull: false
+    }
+});
+
+UserProgress.hasMany(UserAnswer);
+UserAnswer.belongsTo(UserProgress);
+
+Question.hasMany(UserAnswer);
+UserAnswer.belongsTo(Question);
+
 module.exports = {
     sequelize: sequelize,
     LessonPlan: LessonPlan,
     Lesson: Lesson,
     Page: Page,
     User: User,
-    UserProgress: UserProgress
+    UserProgress: UserProgress,
+    Question: Question,
+    UserAnswer: UserAnswer
 };
