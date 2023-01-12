@@ -116,6 +116,15 @@ async function aTest(req, res, next){
     res.render('ahhhhh', obj);
 }
 
+function changeLanguage(req,res){
+    var obj = {
+        lang1 : "Java",
+        lang2: "Python",
+        langMap: {"Java": ["Python", "Javascript", "C++"], "Python":["Fake language1", "lies"], "C++":["Marina Sha"]}
+    };
+
+    res.render('changeLanguage', obj);
+}
 module.exports = function(app, dbInjected) {
     db = dbInjected;
 
@@ -124,6 +133,7 @@ module.exports = function(app, dbInjected) {
     app.get("/", indexEndpoint);
     app.get("/hbsTest", hbsTest);
     app.get("/aTest", aTest);
+    app.get("/changeLanguage", changeLanguage);
 
     app.get("/*", function(req,res){
         res.send("Not a valid page");

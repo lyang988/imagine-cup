@@ -26,8 +26,15 @@ nav {
     text-transform: uppercase;
     margin: 5px;
 }
+.lesson{
+    cursor: pointer;
+}
+.lesson:hover{
+    text-decoration: underline;
+}
 .table tbody tr:hover td, .table tbody tr:hover th {
     background-color: #BCC8F1;
+    color: #030563;
 }
 .table tbody td, .table tbody th {
     background-color: #DDE4F8;
