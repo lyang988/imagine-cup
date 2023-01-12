@@ -116,15 +116,64 @@ async function aTest(req, res, next){
     res.render('ahhhhh', obj);
 }
 
-function changeLanguage(req,res){
+async function changeLanguage(req, res, next){
+    var lessonPlans = await db.LessonPlan.findAll();
+
+    var selectedLessonPlans = lessonPlans.filter(lp => lp.id === req.session.selectedLessonPlanId);
+    var lang1;
+    var lang2;
+
+    if (selectedLessonPlans.length === 0) {
+        lang1 = "Please select";
+        lang2 = "Please select";
+    } else if (selectedLessonPlans.length === 1) {
+        lang1 = selectedLessonPlans[0].lang1;
+        lang2 = selectedLessonPlans[0].lang2;
+    } else {
+        return next(new Error("Lesson plan PK not unique"));
+    }
+
+    var langMap = {};
+    var lang1s = Set();
+    var lang2s = Set();
+    for (var lessonPlan of lessonPlans) {
+        if (langMap[lessonPlan.lang1] === undefined) {
+            langMap[lessonPlan.lang1] = [];
+        }
+        langMap[lessonPlan.lang1].push(lessonPlan.lang2);
+
+        lang1s.add(lessonPlan.lang1);
+        lang2s.add(lessonPlan.lang2);
+    }
+
     var obj = {
-        lang1 : "Java",
-        lang2: "Python",
-        langMap: {"Java": ["Python", "Javascript", "C++"], "Python":["Fake language1", "lies"], "C++":["Marina Sha"]}
+        lang1: lang1,
+        lang2: lang2,
+        langMap: langMap,
+        lang1s: Array.from(lang1s),
+        lang2s: Array.from(lang2s)
     };
 
     res.render('changeLanguage', obj);
 }
+
+async function setLanguage(req, res, next) {
+    var que = req.query;
+
+    var lessonPlan = await db.LessonPlan.findOne({
+        where: {
+            lang1: que.lang1,
+            lang2: que.lang2
+        }
+    });
+
+    if (!lessonPlan) return next(new Error("Lesson plan not found"));
+
+    req.session.selectedLessonPlanId = lessonPlan.id;
+
+    res.sendStatus(200);
+}
+
 module.exports = function(app, dbInjected) {
     db = dbInjected;
 
@@ -134,6 +183,7 @@ module.exports = function(app, dbInjected) {
     app.get("/hbsTest", hbsTest);
     app.get("/aTest", aTest);
     app.get("/changeLanguage", changeLanguage);
+    app.get("/setLanguage", setLanguage);
 
     app.get("/*", function(req,res){
         res.send("Not a valid page");
