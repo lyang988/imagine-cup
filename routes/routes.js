@@ -5,11 +5,11 @@ var db = null;
 
 async function indexEndpoint(req, res, next){
     if (req.session.isAuthenticated) {
-        /*var lessonPlan = await db.LessonPlan.findByPk(req.session.selectedLessonPlanId);
+        var lessonPlan = await db.LessonPlan.findByPk(req.session.selectedLessonPlanId);
 
-        if (!lessonPlan) return res.redirect("/changeLanguage");*/
+        if (!lessonPlan) return res.redirect("/changeLanguage");
 
-        var lessonPlan = await db.LessonPlan.findOne();
+        // var lessonPlan = await db.LessonPlan.findOne();
 
         var lessons = await lessonPlan.getLessons({
             order: [
@@ -134,8 +134,8 @@ async function changeLanguage(req, res, next){
     }
 
     var langMap = {};
-    var lang1s = Set();
-    var lang2s = Set();
+    var lang1s = new Set();
+    var lang2s = new Set();
     for (var lessonPlan of lessonPlans) {
         if (langMap[lessonPlan.lang1] === undefined) {
             langMap[lessonPlan.lang1] = [];
@@ -146,12 +146,22 @@ async function changeLanguage(req, res, next){
         lang2s.add(lessonPlan.lang2);
     }
 
+    // var obj = {
+    //     lang1: lang1,
+    //     lang2: lang2,
+    //     langMap: langMap,
+    //     lang1s: Array.from(lang1s),
+    //     lang2s: Array.from(lang2s)
+    // };
     var obj = {
-        lang1: lang1,
-        lang2: lang2,
-        langMap: langMap,
-        lang1s: Array.from(lang1s),
-        lang2s: Array.from(lang2s)
+        lang1 : "Java",
+        lang2: "Python",
+        lang1s: ["Java", "Python", "C++"],
+        lang2s: ["Python", "Javascript", "C++", "Fakelanguage1", "lies", "MarinaSha", "Java"],
+        langMap: {"Java": ["Python", "Javascript", "C++"], "Python":["Fakelanguage1", "lies", "Java"], "C++":["Python","MarinaSha"]},
+        json: function(obj) {
+            return JSON.stringify(obj);
+          }
     };
 
     res.render('changeLanguage', obj);
@@ -169,6 +179,10 @@ async function setLanguage(req, res, next) {
 
     if (!lessonPlan) return next(new Error("Lesson plan not found"));
 
+    await db.User.update(
+        {selectedLessonPlanId: lessonPlan.id},
+        {where: {id: req.session.userId}}
+    );
     req.session.selectedLessonPlanId = lessonPlan.id;
 
     res.sendStatus(200);
@@ -176,6 +190,14 @@ async function setLanguage(req, res, next) {
 
 async function multipleChoiceAnswer(req, res, next) {
     var que = req.query;
+}
+async function accountPage(req, res, next) {
+    var obj = {
+        user : "atto",
+        lessonplans: [{lang1: "lang1", lang2: "lang2", completion: 50}, {lang1: "Python", lang2: "Java", completion: 100},]
+    };
+
+    res.render('account', obj);
 }
 
 module.exports = function(app, dbInjected) {
@@ -188,6 +210,7 @@ module.exports = function(app, dbInjected) {
     app.get("/aTest", aTest);
     app.get("/changeLanguage", changeLanguage);
     app.get("/setLanguage", setLanguage);
+    app.get("/accountPage", accountPage);
 
     app.get("/*", function(req,res){
         res.send("Not a valid page");
