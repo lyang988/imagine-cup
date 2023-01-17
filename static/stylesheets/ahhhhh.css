@@ -20,6 +20,11 @@ body{
     display: inline;
     font-family:'Tahoma';
 }
+.question {
+    color: black;
+    display: inline;
+    font-family:'Tahoma';
+}
 .codetext{
     background: #f4f4f4;
     border: 1px solid #ddd;
