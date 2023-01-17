@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+   <head>
+       <link rel="stylesheet" type="text/css" href="/stylesheets/ahhhhh.css">
+       <link rel="stylesheet" type="text/css" href="/stylesheets/homepage.css">
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+       <link rel="stylesheet" href="/stylesheets/prism.css">
+   </head>
+   <body>
+       <header>
+          <a href = "/">Header goes here, click to go home</a>
+          <a href = "/changeLanguage">click to change language</a>
+        </header>
+        <div class="mainpage">
+        name: {{user}}<br>
+        chosen lesson plans and progress: <br>
+        {{#each lessonplans}}
+        {{this.lang1}} -> {{this.lang2}} : {{this.completion}}%
+        <br>
+        {{/each}}
+        <button type="button" id = "mainbutton" class="btn btn-outline-info">
+            Delete account
+        </button>
+        <button type="button" id = "confirmbutton" class="btn btn-outline-info" onclick="window.location.href='/deleteaccount';" hidden>
+            confirm
+        </button>
+    </div>
+    <script src="/scripts/prism.js"></script>
+    <script>
+        document.getElementById("mainbutton").addEventListener('click',reveal)
+        function reveal(){
+            console.log('hi')
+            document.getElementById("confirmbutton").hidden = false;
+        }
+    </script>
+   </body>
+</html>
