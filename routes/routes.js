@@ -105,13 +105,58 @@ async function aTest(req, res, next){
 
     var page = pages[0];
 
+    var modifiedArr = [];
+    for (var elem of page.pageData.arr) {
+        if (elem.isquestion) {
+            var questionId = elem.questionId;
+            var question = await db.Question.findByPk(
+                questionId,
+                {
+                    include: {
+                        model: db.UserAnswer,
+                        where: {userProgressId: progress.id},
+                        required: false
+                    }
+                }
+            );
+
+            if (question === null) return next(new Error("Question not found"));
+
+            var questionData = JSON.parse(question.data);
+
+            if (question.type === "multipleChoice") {
+                if (question.UserAnswers.length === 0) {
+                    questionData.currentAnswer = null;
+                } else if (question.UserAnswers.length === 1) {
+                    questionData.currentAnswer = JSON.parse(question.UserAnswers[0].data).answer;
+                } else {
+                    return next(new Error("Too many answers"));
+                }
+
+                modifiedArr.push({
+                    isMultipleChoice: true,
+                    question: questionData.question,
+                    options: questionData.options,
+                    answer: questionData.answer,
+                    currentAnswer: questionData.currentAnswer
+                });
+            } else {
+                return next(new Error("Question type not supported"));
+            }
+        } else {
+            modifiedArr.push(elem);
+        }
+    }
+
     var obj = {
         lang1: lessonPlan.lang1,
         lang2: lessonPlan.lang2,
         lessonname: lesson.name,
         unitnumber: lesson.unit,
-        arr: page.pageData.arr
+        arr: modifiedArr
     };
+
+    console.log(obj.arr)
 
     res.render('ahhhhh', obj);
 }

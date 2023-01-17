@@ -161,11 +161,11 @@ const UserAnswer = sequelize.define('UserAnswer', {
     }
 });
 
-UserProgress.hasMany(UserAnswer);
-UserAnswer.belongsTo(UserProgress);
+UserProgress.hasMany(UserAnswer, {foreignKey: 'userProgressId'});
+UserAnswer.belongsTo(UserProgress, {foreignKey: 'userProgressId'});
 
-Question.hasMany(UserAnswer);
-UserAnswer.belongsTo(Question);
+Question.hasMany(UserAnswer, {foreignKey: 'questionId'});
+UserAnswer.belongsTo(Question, {foreignKey: 'questionId'});
 
 module.exports = {
     sequelize: sequelize,
