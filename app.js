@@ -31,7 +31,7 @@ db.sequelize.authenticate().then(() => {
                 db.Page.create({
                     page: 1,
                     pageData: { arr:
-                        [{"type": "regular", "text": "Here are two functions that print the bigger of the two arguments:"},
+                        [{"type": "regular", "text": "Here are two functions that print the bigger of the two arguments: (Top- Python, Bottom- Java)"},
                 {"iscode":true,"language": "python","type": "code", "text": "def print_bigger(a, b):\n    if a > b:\n        print(a)\n    else:\n        print(b)"},
                 {"iscode":true,"language": "java","type": "code", "text": "import java.io.*;\n\nvoid printBigger(int a, int b){\n    if (a > b) {\n        System.out.println(a); \n    } else {\n        System.out.println(b); \n    } \n}"},
                 {"type": "regular", "text": "Notice that the overall structure of the code is very similar, but the specific syntax is quite different. For instance, instead of using colons and indentation, Java uses curly brackets ("},
