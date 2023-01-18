@@ -59,7 +59,19 @@ db.sequelize.authenticate().then(() => {
                         }),
                         lessonId: lesson.id
                     }).then((question) => {
-                        console.log("Question created");
+                        db.Question.create({
+                            type: "multipleChoice",
+                            data: JSON.stringify({
+                                question: "The answer is B",
+                                options: ["A", "B", "C", "D"],
+                                answer: "B"
+                            }),
+                            lessonId: lesson.id
+                        }).then((question) => {
+                            console.log("Questions created");
+                        }).catch((err) => {
+                            console.log("Error creating question: " + err);
+                        });
                     }).catch((err) => {
                         console.log("Error creating question: " + err);
                     });
