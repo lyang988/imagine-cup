@@ -207,7 +207,7 @@ async function changeLanguage(req, res, next){
         lang2: "Python",
         lang1s: ["Java", "Python", "C++"],
         lang2s: ["Python", "Javascript", "C++", "Fakelanguage1", "lies", "MarinaSha", "Java"],
-        langMap: {"Java": ["Python", "Javascript", "C++"], "Python":["Fakelanguage1", "lies", "Java"], "C++":["Python","MarinaSha"]},
+        langMap: {"Java": ["Python", "Javascript", "C++"], "Python":["Java", "Fakelanguage1", "lies"], "C++":["Python","MarinaSha"]},
         json: function(obj) {
             return JSON.stringify(obj);
           }
@@ -256,7 +256,7 @@ module.exports = function(app, dbInjected) {
 
     app.get("/", indexEndpoint);
     app.get("/hbsTest", hbsTest);
-    app.get("/aTest", aTest);
+    app.get("/lesson", aTest);
     app.get("/changeLanguage", changeLanguage);
     app.get("/setLanguage", setLanguage);
     app.get("/accountPage", accountPage);
