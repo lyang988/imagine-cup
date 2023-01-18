@@ -44,13 +44,31 @@
            {{#if islinebreak}}
              <p></p>
            {{else}}
+           {{#if isMultipleChoice}}
+           <p class="question">{{question}}</p>
+            {{#each options}}
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="{{questionId}}.{{@index}}"/>
+            <label class="form-check-label" for="{{questionId}}.{{@index}}"> {{this}} </label>
+            </div>
+            {{/each}}
+            <button type="button" id = "submit.{{questionId}}" class="btn btn-outline-info">
+            Submit
+          </button>
+          <p id = "res.{{questionId}}"></p>
+           {{else}}
            <div class = {{this.type}}>{{this.text}}</div>
+           {{/if}}
            {{/if}}
            {{/if}}
            {{/if}}
            {{/if}}
        {{/each}}
     </div>
+    <script type="text/javascript">
+        const arr = {{{ json arr }}}
+    </script>
     <script src="/scripts/prism.js"></script>
+    <script src="/scripts/atest.js"></script>
    </body>
 </html>

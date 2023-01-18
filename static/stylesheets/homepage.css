@@ -1,5 +1,5 @@
 html, body{
-    background-image: linear-gradient(to bottom, #FEECEC,#FCC5C5);
+    background-image: linear-gradient(to top, white, #FEECEC 70%,#FCC5C5);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

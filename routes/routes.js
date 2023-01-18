@@ -138,6 +138,7 @@ async function aTest(req, res, next){
                     questionId: questionId,
                     question: questionData.question,
                     options: questionData.options,
+                    questionId: questionId,
                     answer: questionData.answer,
                     currentAnswer: questionData.currentAnswer
                 });
@@ -154,7 +155,10 @@ async function aTest(req, res, next){
         lang2: lessonPlan.lang2,
         lessonname: lesson.name,
         unitnumber: lesson.unit,
-        arr: modifiedArr
+        arr: modifiedArr,
+        json: function(obj) {
+            return JSON.stringify(obj);
+        }
     };
 
     console.log(obj.arr)
