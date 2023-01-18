@@ -135,6 +135,7 @@ async function aTest(req, res, next){
 
                 modifiedArr.push({
                     isMultipleChoice: true,
+                    questionId: questionId,
                     question: questionData.question,
                     options: questionData.options,
                     answer: questionData.answer,
@@ -235,6 +236,14 @@ async function setLanguage(req, res, next) {
 
 async function multipleChoiceAnswer(req, res, next) {
     var que = req.query;
+
+    var question = await db.Question.findByPk(que.questionId);
+    if (!question) return next(new Error("Question not found"));
+
+    // var progress = await db.UserProgress.findOne({
+    //     where: {
+    //         userId: req.session.userId,
+
 }
 async function accountPage(req, res, next) {
     var obj = {
