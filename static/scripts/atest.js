@@ -33,17 +33,21 @@ function successMCQ(questionId, x){
 }
 function onLoadFunction(){
     console.log("page loaded")
-    // for (var elem of arr){
-    //     if(elem.isMultipleChoice){
-    //         console.log(elem)
-    //         var submitid = "submit."+elem.questionId
-    //         console.log(submitid)
-    //         var submit = document.getElementById(submitid)
-    
-    //         submit.addEventListener('click',function(elem){
-    //             console.log(submitid)
-    //             console.log("clicked")
-    //         })
-    //     }
-    // }
+    for (var elem of arr){
+        if(elem.isMultipleChoice){
+            console.log(elem)
+            // if(elem.currentAnswer != null){
+            //     var radioid = "submit."+elem.questionId
+            // }
+            var i = 0;
+            for(var opt of elem.options){
+                console.log(opt)
+                if(opt.option == elem.currentAnswer){
+                    var radioid = elem.questionId+"."+i
+                    document.getElementById(radioid).checked = true
+                }
+                i++
+            }
+        }
+    }
 }
