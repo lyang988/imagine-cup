@@ -1,7 +1,7 @@
 var elements = document.getElementsByClassName("lesson")
 
 function onServerResponse (responseText) {
-    window.location.href = 'atest'
+    window.location.href = 'lesson'
 }
 
 var myFunction = function() {
@@ -11,8 +11,8 @@ var myFunction = function() {
     // console.log(lang2)
     console.log('hello')
     data = new URLSearchParams({"lang1":lang1, "lang2":lang2, "num": this.id})
-    console.log('atest?'+ data.toString())
-    window.location.href = 'atest?'+ data.toString()
+    console.log('lesson?'+ data.toString())
+    window.location.href = 'lesson?'+ data.toString()
     // var ajax_params = {
     //     'url'     : "atest",
     //     'type'    : "get",

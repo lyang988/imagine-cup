@@ -133,11 +133,16 @@ async function aTest(req, res, next){
                     return next(new Error("Too many answers"));
                 }
 
+                var options = [];
+                for (var option of questionData.options) {
+                    options.push({option: option, questionId: questionId});
+                }
+
                 modifiedArr.push({
                     isMultipleChoice: true,
                     questionId: questionId,
                     question: questionData.question,
-                    options: questionData.options,
+                    options: options,
                     questionId: questionId,
                     answer: questionData.answer,
                     currentAnswer: questionData.currentAnswer
@@ -207,7 +212,7 @@ async function changeLanguage(req, res, next){
         lang1 : "Java",
         lang2: "Python",
         lang1s: ["Java", "Python", "C++"],
-        lang2s: ["Python", "Javascript", "C++", "Fakelanguage1", "lies", "MarinaSha", "Java"],
+        lang2s: ["Java", "Python", "Javascript", "C++", "Fakelanguage1", "lies", "MarinaSha"],
         langMap: {"Java": ["Python", "Javascript", "C++"], "Python":["Java", "Fakelanguage1", "lies"], "C++":["Python","MarinaSha"]},
         json: function(obj) {
             return JSON.stringify(obj);
@@ -247,6 +252,7 @@ async function multipleChoiceAnswer(req, res, next) {
     // var progress = await db.UserProgress.findOne({
     //     where: {
     //         userId: req.session.userId,
+    res.send("yay")
 
 }
 async function accountPage(req, res, next) {
@@ -269,6 +275,7 @@ module.exports = function(app, dbInjected) {
     app.get("/changeLanguage", changeLanguage);
     app.get("/setLanguage", setLanguage);
     app.get("/accountPage", accountPage);
+    app.get("/multipleChoiceAnswer", multipleChoiceAnswer)
 
     app.get("/*", function(req,res){
         res.send("Not a valid page");

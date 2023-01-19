@@ -43,6 +43,7 @@ db.sequelize.authenticate().then(() => {
                 {"type": "regular", "text": "). There are some other big differences that we will explore soon, but these two are the most visible - and easy to forget!\n "},
                 {"islinebreak": true, "type": "linebreak"},
                 {"isquestion": true, "questionId": 1},
+                {"isquestion": true, "questionId": 2},
                 {"istable":true, "type": "table", "array": [{" ":"Code Blocks and Control Flow","Python":"Use colons and indentation","Java":"Use opening and closing curly brackets: {, }"},
                 {" ":"Semicolons Ending Statements","Python":"Unnecessary (and proscribed)","Java":"Necessary"}
                 ]}

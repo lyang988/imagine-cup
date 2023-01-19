@@ -7,7 +7,7 @@
        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
        <link rel="stylesheet" href="/stylesheets/prism.css">
    </head>
-   <body>
+   <body onload="onLoadFunction()">
        <header>
           <a href = "/">Header goes here, click to go home</a>
           <a href = "/changeLanguage">click to change language</a>
@@ -47,15 +47,15 @@
            {{#if isMultipleChoice}}
            <p class="question">{{question}}</p>
             {{#each options}}
-            <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="{{questionId}}.{{@index}}"/>
-            <label class="form-check-label" for="{{questionId}}.{{@index}}"> {{this}} </label>
+            <div class="form-check" id = "form{{questionId}}">
+            <input class="form-check-input" type="radio" name="form{{questionId}}" id="{{questionId}}.{{@index}}" value = "{{option}}"/>
+            <label class="form-check-label" for="{{questionId}}.{{@index}}"> {{option}} </label>
             </div>
             {{/each}}
-            <button type="button" id = "submit.{{questionId}}" class="btn btn-outline-info">
+            <button type="button" id = "submit.{{questionId}}" class="btn btn-outline-info" onclick = "submitMCQ({{questionId}})">
             Submit
           </button>
-          <p id = "res.{{questionId}}"></p>
+          <p id = "res{{questionId}}"></p>
            {{else}}
            <div class = {{this.type}}>{{this.text}}</div>
            {{/if}}
@@ -68,6 +68,7 @@
     <script type="text/javascript">
         const arr = {{{ json arr }}}
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="/scripts/prism.js"></script>
     <script src="/scripts/atest.js"></script>
    </body>
