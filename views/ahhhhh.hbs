@@ -1,17 +1,43 @@
 <!DOCTYPE html>
 <html>
    <head>
-       <link rel="stylesheet" type="text/css" href="/stylesheets/ahhhhh.css">
        <link rel="stylesheet" type="text/css" href="/stylesheets/homepage.css">
+       <link rel="stylesheet" type="text/css" href="/stylesheets/ahhhhh.css">
        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
        <link rel="stylesheet" href="/stylesheets/prism.css">
    </head>
    <body onload="onLoadFunction()">
        <header>
-          <a href = "/">Header goes here, click to go home</a>
-          <a href = "/changeLanguage">click to change language</a>
-          <h1>Unit {{unitnumber}}: {{lessonname}}</h1>
+          <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" style="height: 60px">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Anadromy♡</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/changeLanguage">{{lang1}}</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/changeLanguage">{{lang2}}</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/changeLanguage">Change Language</a>
+            </li>
+            <li class="nav-item ml-auto">
+            <a class="nav-link active" aria-current="page" href="/accountPage">Account</a>
+            </li>
+        </ul>
+        <a href="/auth/logout" class="btn btn-outline-blue  ml-auto">logout</a>
+        </div>
+    </div>
+</nav>
+<h1>{{lessonname}}</h1>
         </header>
         <div class="mainpage">
         {{#each arr}}
@@ -52,7 +78,7 @@
             <label class="form-check-label" for="{{questionId}}.{{@index}}"> {{option}} </label>
             </div>
             {{/each}}
-            <button type="button" id = "submit.{{questionId}}" class="btn btn-outline-info" onclick = "submitMCQ({{questionId}})">
+            <button type="button" id = "submit.{{questionId}}" class="btn btn-outline-blue" onclick = "submitMCQ({{questionId}})">
             Submit
           </button>
           <p id = "res{{questionId}}"></p>
