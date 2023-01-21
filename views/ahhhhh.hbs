@@ -78,7 +78,7 @@
             <label class="form-check-label" for="{{questionId}}.{{@index}}"> {{option}} </label>
             </div>
             {{/each}}
-            <button type="button" id = "submit.{{questionId}}" class="btn btn-outline-blue" onclick = "submitMCQ({{questionId}})">
+            <button type="button" id = "submit.{{questionId}}" class="btn btn-outline-blue" onclick = "submitMCQ('{{questionId}}')">
             Submit
           </button>
           <p id = "res{{questionId}}"></p>

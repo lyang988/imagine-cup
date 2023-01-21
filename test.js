@@ -114,6 +114,7 @@ var ints = [
     {"Java":"x++","Python":"((x := x - 1) + 1) # Here, we add 1 to make the expression evaluate to the value of x before it is changed."},
     ]},
 ]
+
 var stringandprint = [
     {"type": "regular", "text": "Strings in Java are immutable, just like in Python. They are defined using the "},
     {"iscodetext":true,"language": "java", "type": "codetext", "text": "String"},
@@ -180,44 +181,11 @@ var semicolonsandbrackets = [{"type": "regular", "text": "Here are two functions
 {"iscodetext":true,"language": "java","type": "codetext", "text": ";"},
 {"type": "regular", "text": "). There are some other big differences that we will explore soon, but these two are the most visible - and easy to forget!\n "},
 {"islinebreak": true, "type": "linebreak"},
-{"isquestion": true, "questionId": "PythonJava_SemicolonBrackets_MCQ1"},
-{"isquestion": true, "questionId": "PythonJava_SemicolonBrackets_MCQ2"},
+{"isquestion": true, "questionId": "Python_Java_SemicolonBrackets_MCQ1"},
+{"isquestion": true, "questionId": "Python_Java_SemicolonBrackets_MCQ2"},
 {"istable":true, "type": "table", "array": [{" ":"Code Blocks and Control Flow","Python":"Use colons and indentation","Java":"Use opening and closing curly brackets: {, }"},
 {" ":"Semicolons Ending Statements","Python":"Unnecessary (and proscribed)","Java":"Necessary"}
 ]}
-]
-
-var lessonPlans = [
-    {lang1: "Python", lang2: "Java"},
-    {lang1: "Python", lang2: "C"},
-    {lang1: "SML", lang2: "OCaml"}
-]
-
-var lessons = [
-    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Semicolons and Brackets", unit: 1, num: 1, numPages: 1}},
-    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Integers", unit: 1, num: 2, numPages: 1}},
-    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Strings", unit: 1, num: 3, numPages: 1}},
-    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Doubles, Floats, and Longs", unit: 1, num: 4, numPages: 1}},
-    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Booleans", unit: 1, num: 5, numPages: 1}}
-]
-
-var pages = [
-    {lessonName: "Semicolons and Brackets", page: {page: 1, pageData: {arr: semicolonsandbrackets}}},
-    {lessonName: "Simple Data Types: Integers", page: {page: 1, pageData: {arr: ints}}},
-    {lessonName: "Simple Data Types: Strings", page: {page: 1, pageData: {arr: stringandprint}}}
-]
-
-var questions = [
-    {lessonName: "Semicolons and Brackets", question: {id: "PythonJava_SemicolonBrackets_MCQ1", type: "multipleChoice", data: JSON.stringify({
-        question: "The answer is A",
-        options: ["A", "B", "C", "D"],
-        answer: "A"
-    })}},
-    {lessonName: "Semicolons and Brackets", question: {id: "PythonJava_SemicolonBrackets_MCQ2", type: "multipleChoice", data: JSON.stringify({
-        question: "The answer is B",
-        options: ["A", "B", "C", "D"],
-        answer: "B"
-    })}}
 ]
 
 var floatlongdouble = [
@@ -315,6 +283,41 @@ var template = [
     {"iscodetext":true,"language": "python", "type": "codetext", "text": ""},
     {"iscode":true,"language": "python","type": "code", "text": ""},
     {"iscode":true,"language": "java","type": "code", "text": ""},
+]
+
+var lessonPlans = [
+    {lang1: "Python", lang2: "Java"},
+    {lang1: "Python", lang2: "C"},
+    {lang1: "SML", lang2: "OCaml"}
+]
+
+var lessons = [
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Semicolons and Brackets", unit: 1, num: 1, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Integers", unit: 1, num: 2, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Strings", unit: 1, num: 3, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Doubles, Floats, and Longs", unit: 1, num: 4, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Booleans", unit: 1, num: 5, numPages: 1}}
+]
+
+var pages = [
+    {lessonName: "Semicolons and Brackets", page: {page: 1, pageData: {arr: semicolonsandbrackets}}},
+    {lessonName: "Simple Data Types: Integers", page: {page: 1, pageData: {arr: ints}}},
+    {lessonName: "Simple Data Types: Strings", page: {page: 1, pageData: {arr: stringandprint}}},
+    {lessonName: "Doubles, Floats, and Longs", page: {page: 1, pageData: {arr: floatlongdouble}}},
+    {lessonName: "Simple Data Types: Booleans", page: {page: 1, pageData: {arr: boolandif}}}
+]
+
+var questions = [
+    {lessonName: "Semicolons and Brackets", question: {id: "Python_Java_SemicolonBrackets_MCQ1", type: "multipleChoice", data: JSON.stringify({
+        question: "The answer is A",
+        options: ["A", "B", "C", "D"],
+        answer: "A"
+    })}},
+    {lessonName: "Semicolons and Brackets", question: {id: "Python_Java_SemicolonBrackets_MCQ2", type: "multipleChoice", data: JSON.stringify({
+        question: "The answer is B",
+        options: ["A", "B", "C", "D"],
+        answer: "B"
+    })}}
 ]
 
 module.exports = {

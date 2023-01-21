@@ -11,20 +11,28 @@ const sequelize = new Sequelize('salmon', 'azureadmin', process.env.SQL_PASSWORD
 });
 
 const LessonPlan = sequelize.define('LessonPlan', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    lang1: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    lang2: {
-        type: DataTypes.STRING,
-        allowNull: false
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        lang1: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        lang2: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }
+    }, {
+        indexes: [
+            {
+                unique: true,
+                fields: ['lang1', 'lang2']
+            }
+        ]
     }
-});
+);
 
 const Lesson = sequelize.define('Lesson', {
         id: {
@@ -124,11 +132,11 @@ const UserProgress = sequelize.define('UserProgress', {
     }
 });
 
-User.hasMany(UserProgress);
-UserProgress.belongsTo(User, {onDelete: 'CASCADE'});
+User.hasMany(UserProgress, {foreignKey: 'userId'});
+UserProgress.belongsTo(User, {foreignKey: 'userId', onDelete: 'CASCADE'});
 
-Lesson.hasMany(UserProgress);
-UserProgress.belongsTo(Lesson, {onDelete: 'CASCADE'});
+Lesson.hasMany(UserProgress, {foreignKey: 'lessonId'});
+UserProgress.belongsTo(Lesson, {foreignKey: 'lessonId', onDelete: 'CASCADE'});
 
 const Question = sequelize.define('Question', {
     id: {
@@ -156,6 +164,10 @@ const UserAnswer = sequelize.define('UserAnswer', {
     },
     data: {
         type: DataTypes.JSON,
+        allowNull: false
+    },
+    correct: {
+        type: DataTypes.BOOLEAN,
         allowNull: false
     }
 });

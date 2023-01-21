@@ -9,8 +9,6 @@ async function indexEndpoint(req, res, next){
 
         if (!lessonPlan) return res.redirect("/changeLanguage");
 
-        // var lessonPlan = await db.LessonPlan.findOne();
-
         var lessons = await lessonPlan.getLessons({
             order: [
                 ['unit', 'ASC'],
@@ -91,17 +89,25 @@ async function aTest(req, res, next){
 
     if (!lesson) return next(new Error("Lesson not found"));
 
-    var progresses = await lesson.getUserProgresses({where: {UserId: req.session.userId}});
-    var progress;
-    if(progresses.length === 0){
-        progress = await db.UserProgress.create({currentPage: 1, completed: false});
-        user = await db.User.findByPk(req.session.userId);
-        await user.addUserProgress(progress);
-        await lesson.addUserProgress(progress);
-    } else if (progresses.length === 1) {
-        progress = progresses[0];
-    } else {
-        return next(new Error("Too many progresses"));
+    var [progress, created] = await db.UserProgress.findOrCreate({
+        where: {
+            userId: req.session.userId,
+            lessonId: lesson.id
+        },
+        defaults: {
+            currentPage: 1,
+            completed: false
+        }
+    });
+
+    // If it was created, we may have to set "completed" to true if there
+    // are no questions
+    if (created) {
+        var questions = await lesson.getQuestions();
+        if (questions.length === 0) {
+            progress.completed = true;
+            await progress.save();
+        }
     }
 
     var pages = await lesson.getPages({where: {page: progress.currentPage}});
@@ -253,17 +259,64 @@ async function setLanguage(req, res, next) {
     res.sendStatus(200);
 }
 
+async function updateLessonCompletion(userProgress) {
+    var incorrectAnswer = await db.UserAnswer.findOne({
+        where: {
+            userProgressId: userProgress.id,
+            correct: false
+        }
+    });
+
+    if (incorrectAnswer) {
+        userProgress.completed = false;
+    } else {
+        userProgress.completed = true;
+    }
+
+    await userProgress.save();
+}
+
 async function multipleChoiceAnswer(req, res, next) {
+    if (!req.session.isAuthenticated) {
+        return res.sendStatus(403);
+    }
+
     var que = req.query;
 
     var question = await db.Question.findByPk(que.questionId);
     if (!question) return next(new Error("Question not found"));
+    if (question.type !== "multipleChoice") return next(new Error("Question type not supported"));
 
-    // var progress = await db.UserProgress.findOne({
-    //     where: {
-    //         userId: req.session.userId,
-    res.send("yay")
+    var progress = await db.UserProgress.findOne({
+        where: {
+            userId: req.session.userId,
+            lessonId: question.lessonId
+        }
+    });
+    if (!progress) return next(new Error("Progress not found"));
 
+    var [userAnswer, _] = await db.UserAnswer.findOrCreate({
+        where: {
+            questionId: question.id,
+            userProgressId: progress.id
+        },
+        defaults: {
+            data: '',
+            correct: false
+        }
+    });
+
+    userAnswer.data = JSON.stringify({answer: que.selectedAnswer});
+    userAnswer.correct = JSON.parse(question.data).answer === que.selectedAnswer;
+    await userAnswer.save();
+
+    await updateLessonCompletion(progress);
+
+    if (userAnswer.correct) {
+        res.send("Correct answer!");
+    } else {
+        res.send("Incorrect answer");
+    }
 }
 
 async function accountPage(req, res, next) {
@@ -274,23 +327,43 @@ async function accountPage(req, res, next) {
     var user = await db.User.findByPk(req.session.userId);
     if (!user) return next(new Error("User not found"));
 
-    var lessonPlans = await db.LessonPlan.findAll(
-        {
+    var lessonPlans = await db.LessonPlan.findAll({
+        include: {
+            model: db.Lesson,
+            include: {
+                model: db.UserProgress,
+                where: {
+                    userId: req.session.userId,
+                }
+            },
+            required: true
+        }
+    });
+
+    var lessonPlanData = await Promise.all(lessonPlans.map(async (lessonPlan) => {
+        var lessonCount = await db.Lesson.count({
             where: {
-                '$Lessons.UserProgresses.userId$': req.session.userId
+                lessonPlanId: lessonPlan.id
+            }
+        });
+
+        var completedLessonCount = await db.Lesson.count({
+            where: {
+                lessonPlanId: lessonPlan.id
             },
             include: {
-                model: db.Lesson,
-                include: {
-                    model: db.UserProgress,
+                model: db.UserProgress,
+                where: {
+                    userId: req.session.userId,
+                    completed: true
                 }
             }
-        }
-    );
+        });
 
-    var lessonPlanData = lessonPlans.map((lessonPlan) => {
-        return {lang1: lessonPlan.lang1, lang2: lessonPlan.lang2}
-    });
+        console.log(Math.round(completedLessonCount / lessonCount * 100));
+
+        return {lang1: lessonPlan.lang1, lang2: lessonPlan.lang2, completion: Math.round(completedLessonCount / lessonCount * 100)}
+    }));
 
     var obj = {
         user: user.name,
@@ -315,7 +388,7 @@ async function deleteAccount(req, res, next) {
 
     await user.destroy();
 
-    res.ok();
+    res.sendStatus(200);
 }
 
 module.exports = function(app, dbInjected) {
