@@ -28,14 +28,17 @@
         </div>
     </div>
 </nav>
+<h1>User: {{user}}</h1>
         </header>
         <div class="mainpage">
-        name: {{user}}<br>
-        chosen lesson plans and progress: <br>
-        {{#each lessonplans}}
-        {{this.lang1}} -> {{this.lang2}} : {{this.completion}}%
-        <br>
-        {{/each}}
+            <h2>Chosen lesson plans:</h2>
+            <ul class="list-group">
+                {{#each lessonplans}}
+                <li class="list-group-item regular" style="background-color: #D3F2FF;" onclick="changeLanguage('{{this.lang1}}','{{this.lang2}}');"><a onmouseover="this.style.textDecoration='underline'; this.style.cursor= 'pointer';" 
+    onmouseout="this.style.textDecoration='none';">{{this.lang1}} -> {{this.lang2}}</a></li>
+            {{/each}}
+            </ul>
+            <br>
         <button type="button" id = "mainbutton" class="btn btn-outline-blue">
             Delete account
         </button>
@@ -43,12 +46,28 @@
             confirm
         </button>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="/scripts/prism.js"></script>
     <script>
         document.getElementById("mainbutton").addEventListener('click',reveal)
         function reveal(){
             console.log('hi')
             document.getElementById("confirmbutton").hidden = false;
+        }
+        function changeLanguage(lang1, lang2){
+            data = {"lang1": lang1, "lang2": lang2}
+            console.log('hello');
+            var ajax_params = {
+                'url'     : "setLanguage",
+                'type'    : "get",
+                'data'    : data,
+                'success' : onServerResponseLang
+            }
+        
+            $.ajax( ajax_params )
+        }
+        function onServerResponseLang (responseText) {
+            window.location.href = "/"
         }
         function deleteAcc(){
             data = {}

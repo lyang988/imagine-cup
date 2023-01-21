@@ -169,8 +169,11 @@ var stringandprint = [
     {"iscode":true,"language": "java","type": "code", "text": "String myStr1 = \"b\";\nString myStr2 = \"b\";\nString myStr3 = \"a\";\nString myStr4 = \"d\";\nSystem.out.println(myStr1.compareTo(myStr2)); // prints \"0\"\nSystem.out.println(myStr1.equals(myStr2)); // prints \"true\"\nSystem.out.println(myStr2.compareTo(myStr3)); // prints \"1\"\nSystem.out.println(myStr2.compareTo(myStr4)); // prints \"-2\""},
 ]
 
-var semicolonsandbrackets = [{"type": "regular", "text": "Here are two functions that print the bigger of the two arguments: (Top- Python, Bottom- Java)"},
+var semicolonsandbrackets = [{"type": "regular", "text": "Here are two functions that print the bigger of the two arguments: "},
+{"islinebreak": true, "type": "linebreak"},
+{"type": "regular", "text": "Python: "},
 {"iscode":true,"language": "python","type": "code", "text": "def print_bigger(a, b):\n    if a > b:\n        print(a)\n    else:\n        print(b)"},
+{"type": "regular", "text": "Java: "},
 {"iscode":true,"language": "java","type": "code", "text": "import java.io.*;\n\nvoid printBigger(int a, int b){\n    if (a > b) {\n        System.out.println(a); \n    } else {\n        System.out.println(b); \n    } \n}"},
 {"type": "regular", "text": "Notice that the overall structure of the code is very similar, but the specific syntax is quite different. For instance, instead of using colons and indentation, Java uses curly brackets ("},
 {"iscodetext":true,"language": "java","type": "codetext", "text": "{"},
@@ -180,11 +183,19 @@ var semicolonsandbrackets = [{"type": "regular", "text": "Here are two functions
 {"iscodetext":true,"language": "java","type": "codetext", "text": ";"},
 {"type": "regular", "text": "). There are some other big differences that we will explore soon, but these two are the most visible - and easy to forget!\n "},
 {"islinebreak": true, "type": "linebreak"},
+{"type": "regular", "text": "The one key exception to this rule is when a code block only contains a single statement. In this case, brackets are not necessary and instead only the next line (up to the semicolon) is automatically contained within the code block"},
+{"iscode":true,"language": "java","type": "code", "text": "if (x==0)\n    x++; //contained in if statement block\nx--; // Not contained in if statement block"},
+{"type": "regular", "text": "Another key difference is that Java uses "},
+{"iscodetext":true,"language": "java", "type": "codetext", "text": "//"},
+{"type": "regular", "text": "to comment code which is equivalent to "},
+{"iscodetext":true,"language": "python", "type": "codetext", "text": "#"},
+{"type": "regular", "text": "in Python"},
+{"islinebreak": true, "type": "linebreak"},
+{"istable":true, "type": "table", "array": [{" ":"Code Blocks and Control Flow","Python":"Use colons and indentation","Java":"Use opening and closing curly brackets: {, }"},
+{" ":"Semicolons Ending Statements","Python":"Unnecessary (and proscribed)","Java":"Necessary"},
+]},
 {"isquestion": true, "questionId": "PythonJava_SemicolonBrackets_MCQ1"},
 {"isquestion": true, "questionId": "PythonJava_SemicolonBrackets_MCQ2"},
-{"istable":true, "type": "table", "array": [{" ":"Code Blocks and Control Flow","Python":"Use colons and indentation","Java":"Use opening and closing curly brackets: {, }"},
-{" ":"Semicolons Ending Statements","Python":"Unnecessary (and proscribed)","Java":"Necessary"}
-]}
 ]
 
 var lessonPlans = [
@@ -209,14 +220,17 @@ var pages = [
 
 var questions = [
     {lessonName: "Semicolons and Brackets", question: {id: "PythonJava_SemicolonBrackets_MCQ1", type: "multipleChoice", data: JSON.stringify({
-        question: "The answer is A",
-        options: ["A", "B", "C", "D"],
-        answer: "A"
+        question: [{"isregular":true, "type": "regular", "text": "Is this Java code valid?\n"},
+                   {"iscode":true,"language": "java","type": "code", "text": "if(x==0) return true;"},
+                    ],
+        options: ["Yes", "No"],
+        answer: "Yes"
     })}},
     {lessonName: "Semicolons and Brackets", question: {id: "PythonJava_SemicolonBrackets_MCQ2", type: "multipleChoice", data: JSON.stringify({
-        question: "The answer is B",
-        options: ["A", "B", "C", "D"],
-        answer: "B"
+        question: [{"isregular":true, "type": "regular", "text": "Indentation is important in Java"},
+        ],
+        options: ["Always", "Never", "Sometimes"],
+        answer: "Never"
     })}}
 ]
 
