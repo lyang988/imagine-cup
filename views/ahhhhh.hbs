@@ -71,7 +71,22 @@
              <p></p>
            {{else}}
            {{#if isMultipleChoice}}
-           <p class="question">{{question}}</p>
+           <h3>Test Your Knowledge: </h3>
+           <p class="question">{{#each question}}
+                {{#if isregular}}
+                {{text}}
+                {{/if}}
+                {{#if iscodetext}}
+                <code class =  "language-{{this.language}} {{this.type}}">{{this.text}}</code>
+                {{/if}}
+                {{#if iscode}}
+                <pre><code class = "language-{{this.language}} {{this.type}}">{{this.text}}</code></pre>
+                {{/if}}
+                {{#if islinebreak}}
+                <p></p>
+                {{/if}}
+            {{/each}}
+            </p>
             {{#each options}}
             <div class="form-check" id = "form{{questionId}}">
             <input class="form-check-input" type="radio" name="form{{questionId}}" id="{{questionId}}.{{@index}}" value = "{{option}}"/>
