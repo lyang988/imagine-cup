@@ -353,14 +353,14 @@ var pages = [
 ]
 
 var questions = [
-    {lessonName: "Semicolons and Brackets", question: {id: "PythonJava_SemicolonBrackets_MCQ1", type: "multipleChoice", data: JSON.stringify({
+    {lessonName: "Semicolons and Brackets", question: {id: "Python_Java_SemicolonBrackets_MCQ1", type: "multipleChoice", data: JSON.stringify({
         question: [{"isregular":true, "type": "regular", "text": "Is this Java code valid?\n"},
                    {"iscode":true,"language": "java","type": "code", "text": "if(x==0) return true;"},
                     ],
         options: ["Yes", "No"],
         answer: "Yes"
     })}},
-    {lessonName: "Semicolons and Brackets", question: {id: "PythonJava_SemicolonBrackets_MCQ2", type: "multipleChoice", data: JSON.stringify({
+    {lessonName: "Semicolons and Brackets", question: {id: "Python_Java_SemicolonBrackets_MCQ2", type: "multipleChoice", data: JSON.stringify({
         question: [{"isregular":true, "type": "regular", "text": "Indentation is important in Java"},
         ],
         options: ["Always", "Never", "Sometimes"],
