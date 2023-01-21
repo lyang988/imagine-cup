@@ -68,7 +68,7 @@ function hbsTest(req,res){
 
 async function aTest(req, res, next){ 
     if (!req.session.isAuthenticated) {
-        return res.redirect("/");
+        return res.redirect('/');
     }
 
     var que = req.query;
@@ -170,12 +170,14 @@ async function aTest(req, res, next){
         }
     };
 
-    console.log(obj.arr)
-
     res.render('ahhhhh', obj);
 }
 
 async function changeLanguage(req, res, next){
+    if (!req.session.isAuthenticated) {
+        return res.redirect('/');
+    }
+
     var lessonPlans = await db.LessonPlan.findAll();
 
     var selectedLessonPlans = lessonPlans.filter(lp => lp.id === req.session.selectedLessonPlanId);
@@ -205,23 +207,27 @@ async function changeLanguage(req, res, next){
         lang2s.add(lessonPlan.lang2);
     }
 
-    // var obj = {
-    //     lang1: lang1,
-    //     lang2: lang2,
-    //     langMap: langMap,
-    //     lang1s: Array.from(lang1s),
-    //     lang2s: Array.from(lang2s)
-    // };
     var obj = {
-        lang1 : "Java",
-        lang2: "Python",
-        lang1s: ["Java", "Python", "C++"],
-        lang2s: ["Java", "Python", "Javascript", "C++", "Fakelanguage1", "lies", "MarinaSha"],
-        langMap: {"Java": ["Python", "Javascript", "C++"], "Python":["Java", "Fakelanguage1", "lies"], "C++":["Python","MarinaSha"]},
+        lang1: lang1,
+        lang2: lang2,
+        langMap: langMap,
+        lang1s: Array.from(lang1s),
+        lang2s: Array.from(lang2s),
         json: function(obj) {
             return JSON.stringify(obj);
-          }
+        }
     };
+
+    // var obj = {
+    //     lang1 : "Java",
+    //     lang2: "Python",
+    //     lang1s: ["Java", "Python", "C++"],
+    //     lang2s: ["Java", "Python", "Javascript", "C++", "Fakelanguage1", "lies", "MarinaSha"],
+    //     langMap: {"Java": ["Python", "Javascript", "C++"], "Python":["Java", "Fakelanguage1", "lies"], "C++":["Python","MarinaSha"]},
+    //     json: function(obj) {
+    //         return JSON.stringify(obj);
+    //       }
+    // };
 
     res.render('changeLanguage', obj);
 }
@@ -259,13 +265,57 @@ async function multipleChoiceAnswer(req, res, next) {
     res.send("yay")
 
 }
+
 async function accountPage(req, res, next) {
+    if (!req.session.isAuthenticated) {
+        return res.redirect('/');
+    }
+
+    var user = await db.User.findByPk(req.session.userId);
+    if (!user) return next(new Error("User not found"));
+
+    var lessonPlans = await db.LessonPlan.findAll(
+        {
+            where: {
+                '$Lessons.UserProgresses.userId$': req.session.userId
+            },
+            include: {
+                model: db.Lesson,
+                include: {
+                    model: db.UserProgress,
+                }
+            }
+        }
+    );
+
+    var lessonPlanData = lessonPlans.map((lessonPlan) => {
+        return {lang1: lessonPlan.lang1, lang2: lessonPlan.lang2}
+    });
+
     var obj = {
-        user : "atto",
-        lessonplans: [{lang1: "lang1", lang2: "lang2", completion: 50}, {lang1: "Python", lang2: "Java", completion: 100},]
-    };
+        user: user.name,
+        lessonplans: lessonPlanData
+    }
+
+    // var obj = {
+    //     user : "atto",
+    //     lessonplans: [{lang1: "lang1", lang2: "lang2", completion: 50}, {lang1: "Python", lang2: "Java", completion: 100},]
+    // };
 
     res.render('account', obj);
+}
+
+async function deleteAccount(req, res, next) {
+    if (!req.session.isAuthenticated) {
+        return res.redirect('/');
+    }
+
+    var user = await db.User.findByPk(req.session.userId);
+    if (!user) return next(new Error("User not found"));
+
+    await user.destroy();
+
+    res.ok();
 }
 
 module.exports = function(app, dbInjected) {
@@ -279,7 +329,9 @@ module.exports = function(app, dbInjected) {
     app.get("/changeLanguage", changeLanguage);
     app.get("/setLanguage", setLanguage);
     app.get("/accountPage", accountPage);
-    app.get("/multipleChoiceAnswer", multipleChoiceAnswer)
+    app.get("/multipleChoiceAnswer", multipleChoiceAnswer);
+
+    app.post("/deleteAccount", deleteAccount);
 
     app.get("/*", function(req,res){
         res.send("Not a valid page");

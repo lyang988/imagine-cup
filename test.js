@@ -169,6 +169,57 @@ var stringandprint = [
     {"iscode":true,"language": "java","type": "code", "text": "String myStr1 = \"b\";\nString myStr2 = \"b\";\nString myStr3 = \"a\";\nString myStr4 = \"d\";\nSystem.out.println(myStr1.compareTo(myStr2)); // prints \"0\"\nSystem.out.println(myStr1.equals(myStr2)); // prints \"true\"\nSystem.out.println(myStr2.compareTo(myStr3)); // prints \"1\"\nSystem.out.println(myStr2.compareTo(myStr4)); // prints \"-2\""},
 ]
 
+var semicolonsandbrackets = [{"type": "regular", "text": "Here are two functions that print the bigger of the two arguments: (Top- Python, Bottom- Java)"},
+{"iscode":true,"language": "python","type": "code", "text": "def print_bigger(a, b):\n    if a > b:\n        print(a)\n    else:\n        print(b)"},
+{"iscode":true,"language": "java","type": "code", "text": "import java.io.*;\n\nvoid printBigger(int a, int b){\n    if (a > b) {\n        System.out.println(a); \n    } else {\n        System.out.println(b); \n    } \n}"},
+{"type": "regular", "text": "Notice that the overall structure of the code is very similar, but the specific syntax is quite different. For instance, instead of using colons and indentation, Java uses curly brackets ("},
+{"iscodetext":true,"language": "java","type": "codetext", "text": "{"},
+{"type": "regular", "text": ", "},
+{"iscodetext":true,"language": "java", "type": "codetext", "text": "}"},
+{"type": "regular", "text": ") to specify function and if-statement bodies. Also, statements in Java end in a semicolon ("},
+{"iscodetext":true,"language": "java","type": "codetext", "text": ";"},
+{"type": "regular", "text": "). There are some other big differences that we will explore soon, but these two are the most visible - and easy to forget!\n "},
+{"islinebreak": true, "type": "linebreak"},
+{"isquestion": true, "questionId": "PythonJava_SemicolonBrackets_MCQ1"},
+{"isquestion": true, "questionId": "PythonJava_SemicolonBrackets_MCQ2"},
+{"istable":true, "type": "table", "array": [{" ":"Code Blocks and Control Flow","Python":"Use colons and indentation","Java":"Use opening and closing curly brackets: {, }"},
+{" ":"Semicolons Ending Statements","Python":"Unnecessary (and proscribed)","Java":"Necessary"}
+]}
+]
+
+var lessonPlans = [
+    {lang1: "Python", lang2: "Java"},
+    {lang1: "Python", lang2: "C"},
+    {lang1: "SML", lang2: "OCaml"}
+]
+
+var lessons = [
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Semicolons and Brackets", unit: 1, num: 1, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Integers", unit: 1, num: 2, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Strings", unit: 1, num: 3, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Doubles, Floats, and Longs", unit: 1, num: 4, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Booleans", unit: 1, num: 5, numPages: 1}}
+]
+
+var pages = [
+    {lessonName: "Semicolons and Brackets", page: {page: 1, pageData: {arr: semicolonsandbrackets}}},
+    {lessonName: "Simple Data Types: Integers", page: {page: 1, pageData: {arr: ints}}},
+    {lessonName: "Simple Data Types: Strings", page: {page: 1, pageData: {arr: stringandprint}}}
+]
+
+var questions = [
+    {lessonName: "Semicolons and Brackets", question: {id: "PythonJava_SemicolonBrackets_MCQ1", type: "multipleChoice", data: JSON.stringify({
+        question: "The answer is A",
+        options: ["A", "B", "C", "D"],
+        answer: "A"
+    })}},
+    {lessonName: "Semicolons and Brackets", question: {id: "PythonJava_SemicolonBrackets_MCQ2", type: "multipleChoice", data: JSON.stringify({
+        question: "The answer is B",
+        options: ["A", "B", "C", "D"],
+        answer: "B"
+    })}}
+]
+
 var floatlongdouble = [
     {"type": "regular", "text": "Unlike Python, there is a maximum value for "},
     {"iscodetext":true,"language": "java", "type": "codetext", "text": "int"},
@@ -300,4 +351,9 @@ var template = [
     {"iscode":true,"language": "java","type": "code", "text": ""},
 ]
 
-module.exports = boolandif;
+module.exports = {
+    lessonPlans: lessonPlans,
+    lessons: lessons,
+    pages: pages,
+    questions: questions
+};
