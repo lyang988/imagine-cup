@@ -67,6 +67,10 @@ function hbsTest(req,res){
 }
 
 async function aTest(req, res, next){ 
+    if (!req.session.isAuthenticated) {
+        return res.redirect("/");
+    }
+
     var que = req.query;
 
     var lessonPlan = await db.LessonPlan.findOne({
