@@ -1,8 +1,11 @@
 var ints = [   
     {"type": "regular", "text": "Perhaps the most crucial difference between Python and Java are their type systems: Java is ‘strongly typed’, whereas Python is ‘weakly typed’. We’ll dig a little deeper into what that means here. "},
     {"islinebreak": true, "type": "linebreak"},
-    {"type": "regular", "text": "Recall the code from the last lesson: (Left- Python, Right- Java)"},
+    {"type": "regular", "text": "Recall the code from the last lesson: "},
+    {"islinebreak": true, "type": "linebreak"},
+    {"type": "regular", "text": "Python:"},
     {"iscode":true,"language": "python","type": "code", "text": "def print_bigger(a, b):\n    if a > b:\n        print(a)\n    else:\n        print(b)"},
+    {"type": "regular", "text": "Java:"},
     {"iscode":true,"language": "java","type": "code", "text": "import java.io.*;\n\nvoid printBigger(int a, int b){\n    if (a > b) {\n        System.out.println(a); \n    } else {\n        System.out.println(b); \n    } \n}"},
     {"type": "regular", "text": "Notice the difference in the way we have defined the arguments."},
     {"islinebreak": true, "type": "linebreak"},
@@ -110,9 +113,11 @@ var ints = [
     {"type": "regular", "text": ""},
     {"type": "regular", "text": ""},
     {"istable":true, "type": "table", "array": [{"Java":"++x","Python":"(x := x + 1)"},
-    {"Java":"--x","Python":"((x := x + 1) - 1) # Here, we subtract 1 to make the expression evaluate to the value of x before it is changed."},
-    {"Java":"x++","Python":"((x := x - 1) + 1) # Here, we add 1 to make the expression evaluate to the value of x before it is changed."},
+    {"Java":"--x","Python":"(x := x - 1)"},
+    {"Java":"x++","Python":"((x := x + 1) - 1) # Here, we subtract 1 to make the expression evaluate to the value of x before it is changed."},
+    {"Java":"x--","Python":"((x := x - 1) + 1) # Here, we add 1 to make the expression evaluate to the value of x before it is changed."},
     ]},
+    {"isquestion": true, "questionId": "Ints_MCQ1"},
 ]
 
 var stringandprint = [
@@ -168,6 +173,7 @@ var stringandprint = [
     {"iscodetext":true,"language": "java","type": "codetext", "text": "compareTo"},
     {"type": "regular", "text": "compares the Strings lexicographically and returns an int. 0 if the strings are equal, < 0 if the string is lexicographically less than the other string, > 0 if the string is lexicographically greater than the other string.  Example:"},
     {"iscode":true,"language": "java","type": "code", "text": "String myStr1 = \"b\";\nString myStr2 = \"b\";\nString myStr3 = \"a\";\nString myStr4 = \"d\";\nSystem.out.println(myStr1.compareTo(myStr2)); // prints \"0\"\nSystem.out.println(myStr1.equals(myStr2)); // prints \"true\"\nSystem.out.println(myStr2.compareTo(myStr3)); // prints \"1\"\nSystem.out.println(myStr2.compareTo(myStr4)); // prints \"-2\""},
+    {"isquestion": true, "questionId": "Strings_MCQ1"},
 ]
 
 var semicolonsandbrackets = [{"type": "regular", "text": "Here are two functions that print the bigger of the two arguments: "},
@@ -316,6 +322,7 @@ var boolandif = [
     {"islinebreak": true, "type": "linebreak"},
     {"type": "regular", "text": "Generally, if there is only one statement in a singular if statement, it is good style to omit the brackets:"},
     {"iscode":true,"language": "java","type": "code", "text": "if (x == 0) x++;"},
+    {"isquestion": true, "questionId": "Bools_MCQ1"},
 ]
 
 var template = [
@@ -365,7 +372,27 @@ var questions = [
         ],
         options: ["Always", "Never", "Sometimes"],
         answer: "Never"
-    })}}
+    })}},
+    {lessonName: "Simple Data Types: Integers", question: {id: "Ints_MCQ1", type: "multipleChoice", data: JSON.stringify({
+        question: [{"isregular":true, "type": "regular", "text": "Indentation is important in Java"},
+        ],
+        options: ["Always", "Never", "Sometimes"],
+        answer: "Never"
+    })}},
+    {lessonName: "Simple Data Types: Strings", question: {id: "Strings_MCQ1", type: "multipleChoice", data: JSON.stringify({
+        question: [{"isregular":true, "type": "regular", "text": "How do I find the length of a String "},
+        {"iscodetext":true,"language": "java","type": "codetext", "text": "s"},
+        ],
+        options: ["s.length", "s.length()", "length(s)", "len(s)"],
+        answer: "s.length()"
+    })}},
+    {lessonName: "Simple Data Types: Booleans", question: {id: "Bools_MCQ1", type: "multipleChoice", data: JSON.stringify({
+        question: [{"isregular":true, "type": "regular", "text": "Is the following Java code valid?"},
+        {"iscode":true,"language": "java","type": "code", "text": "int x=0\nif(TRUE) x++;"},
+        ],
+        options: ["Yes", "No"],
+        answer: "No"
+    })}},
 ]
 
 module.exports = {

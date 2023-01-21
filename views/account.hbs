@@ -36,7 +36,7 @@
             <ul class="list-group">
                 {{#each lessonplans}}
                 <li class="list-group-item regular" style="background-color: #D3F2FF;" onclick="changeLanguage('{{this.lang1}}','{{this.lang2}}');"><a onmouseover="this.style.textDecoration='underline'; this.style.cursor= 'pointer';" 
-    onmouseout="this.style.textDecoration='none';">{{this.lang1}} -> {{this.lang2}}</a></li>
+    onmouseout="this.style.textDecoration='none';">{{this.lang1}} -> {{this.lang2}}: {{completion}}% complete </a></li>
             {{/each}}
             </ul>
             <br>
