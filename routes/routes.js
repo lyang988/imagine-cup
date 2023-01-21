@@ -103,8 +103,14 @@ async function aTest(req, res, next){
     // If it was created, we may have to set "completed" to true if there
     // are no questions
     if (created) {
-        var questions = await lesson.getQuestions();
-        if (questions.length === 0) {
+        var firstQuestion = await db.Question.findOne({
+            attributes: ['type'],
+            where: {
+                lessonId: lesson.id
+            }
+        });
+
+        if (!firstQuestion) {
             progress.completed = true;
             await progress.save();
         }
@@ -259,15 +265,21 @@ async function setLanguage(req, res, next) {
     res.sendStatus(200);
 }
 
-async function updateLessonCompletion(userProgress) {
-    var incorrectAnswer = await db.UserAnswer.findOne({
+async function updateLessonCompletion(userProgress, question) {
+    var questionCount = await db.Question.count({
         where: {
-            userProgressId: userProgress.id,
-            correct: false
+            lessonId: question.lessonId
         }
     });
 
-    if (incorrectAnswer) {
+    var userCorrectAnswerCount = await db.UserAnswer.count({
+        where: {
+            userProgressId: userProgress.id,
+            correct: true
+        }
+    });
+
+    if (userCorrectAnswerCount !== questionCount) {
         userProgress.completed = false;
     } else {
         userProgress.completed = true;
@@ -310,7 +322,7 @@ async function multipleChoiceAnswer(req, res, next) {
     userAnswer.correct = JSON.parse(question.data).answer === que.selectedAnswer;
     await userAnswer.save();
 
-    await updateLessonCompletion(progress);
+    await updateLessonCompletion(progress, question);
 
     if (userAnswer.correct) {
         res.send("Correct answer!");
@@ -359,8 +371,6 @@ async function accountPage(req, res, next) {
                 }
             }
         });
-
-        console.log(Math.round(completedLessonCount / lessonCount * 100));
 
         return {lang1: lessonPlan.lang1, lang2: lessonPlan.lang2, completion: Math.round(completedLessonCount / lessonCount * 100)}
     }));

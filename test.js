@@ -118,6 +118,7 @@ var ints = [
     {"Java":"x--","Python":"((x := x - 1) + 1) # Here, we add 1 to make the expression evaluate to the value of x before it is changed."},
     ]},
     {"isquestion": true, "questionId": "Ints_MCQ1"},
+    {"isquestion": true, "questionId": "Ints_MCQ2"},
 ]
 
 var stringandprint = [
@@ -345,7 +346,7 @@ var lessonPlans = [
 
 var lessons = [
     {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Semicolons and Brackets", unit: 1, num: 1, numPages: 1}},
-    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Integers", unit: 1, num: 2, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Types and Integers", unit: 1, num: 2, numPages: 1}},
     {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Strings", unit: 1, num: 3, numPages: 1}},
     {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Doubles, Floats, and Longs", unit: 1, num: 4, numPages: 1}},
     {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Booleans", unit: 1, num: 5, numPages: 1}}
@@ -353,7 +354,7 @@ var lessons = [
 
 var pages = [
     {lessonName: "Semicolons and Brackets", page: {page: 1, pageData: {arr: semicolonsandbrackets}}},
-    {lessonName: "Simple Data Types: Integers", page: {page: 1, pageData: {arr: ints}}},
+    {lessonName: "Types and Integers", page: {page: 1, pageData: {arr: ints}}},
     {lessonName: "Simple Data Types: Strings", page: {page: 1, pageData: {arr: stringandprint}}},
     {lessonName: "Doubles, Floats, and Longs", page: {page: 1, pageData: {arr: floatlongdouble}}},
     {lessonName: "Simple Data Types: Booleans", page: {page: 1, pageData: {arr: boolandif}}}
@@ -368,16 +369,29 @@ var questions = [
         answer: "Yes"
     })}},
     {lessonName: "Semicolons and Brackets", question: {id: "Python_Java_SemicolonBrackets_MCQ2", type: "multipleChoice", data: JSON.stringify({
-        question: [{"isregular":true, "type": "regular", "text": "Indentation is important in Java"},
+        question: [{"isregular":true, "type": "regular", "text": "Indentation is syntantically important in Java"},
         ],
         options: ["Always", "Never", "Sometimes"],
         answer: "Never"
     })}},
-    {lessonName: "Simple Data Types: Integers", question: {id: "Ints_MCQ1", type: "multipleChoice", data: JSON.stringify({
-        question: [{"isregular":true, "type": "regular", "text": "Indentation is important in Java"},
+    {lessonName: "Types and Integers", question: {id: "Ints_MCQ1", type: "multipleChoice", data: JSON.stringify({
+        question: [
+            {"isregular":true, "type": "regular", "text": "What is wrong with the following Java code?"},
+            {"iscode":true,"language": "java","type": "code", "text": "int i = 1;\nint j = 2;\nint i = i + j;\n// i is now 3, right?"}
         ],
-        options: ["Always", "Never", "Sometimes"],
-        answer: "Never"
+        options: ["You cannot use the `int` type in Java - the correct type is `Integer`", "This code declares `i` twice; the third line should not include the type of `i` (`int`)", "The `+` operator does not exist in Java - you must write `i.add(j)`", "There is nothing wrong with this code"],
+        answer: "This code declares `i` twice; the third line should not include the type of `i` (`int`)"
+    })}},
+    {lessonName: "Types and Integers", question: {id: "Ints_MCQ2", type: "multipleChoice", data: JSON.stringify({
+        question: [
+            {"isregular":true, "type": "regular", "text": "True or false: the following Python and Java code samples calculate the same number"},
+            {"iscodetext":true,"language": "java", "type": "codetext", "text": "z"},
+            {"isregular":true, "type": "regular", "text": "."},
+            {"iscode":true,"language": "python","type": "code", "text": "# Python\nx = 2147483647\ny = 20\nz = x + y"},
+            {"iscode":true,"language": "java","type": "code", "text": "// Java\nint x = 2147483647\nint y = 20\nint z = x + y"},
+        ],
+        options: ["True", "False"],
+        answer: "False"
     })}},
     {lessonName: "Simple Data Types: Strings", question: {id: "Strings_MCQ1", type: "multipleChoice", data: JSON.stringify({
         question: [{"isregular":true, "type": "regular", "text": "How do I find the length of a String "},
