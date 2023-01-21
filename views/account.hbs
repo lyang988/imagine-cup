@@ -39,7 +39,7 @@
         <button type="button" id = "mainbutton" class="btn btn-outline-blue">
             Delete account
         </button>
-        <button type="button" id = "confirmbutton" class="btn btn-outline-blue" onclick="window.location.href='/deleteaccount';" hidden>
+        <button type="button" id = "confirmbutton" class="btn btn-outline-blue" onclick="deleteAcc()';" hidden>
             confirm
         </button>
     </div>
@@ -49,6 +49,20 @@
         function reveal(){
             console.log('hi')
             document.getElementById("confirmbutton").hidden = false;
+        }
+        function deleteAcc(){
+            data = {}
+            var ajax_params = {
+            'url'     : "deleteAccount",
+            'type'    : "POST",
+            'data'    : data,
+            'success' : onServerResponse
+            }
+        
+            $.ajax( ajax_params )
+        }
+        function onServerResponse (responseText) {
+            window.location.href = "/auth/logout"
         }
     </script>
    </body>
