@@ -61,7 +61,7 @@ const Lesson = sequelize.define('Lesson', {
 );
 
 LessonPlan.hasMany(Lesson, {foreignKey: 'lessonPlanId'});
-Lesson.belongsTo(LessonPlan, {foreignKey: 'lessonPlanId'});
+Lesson.belongsTo(LessonPlan, {foreignKey: 'lessonPlanId'}, {onDelete: 'CASCADE'});
 
 const Page = sequelize.define('Page', {
     id: {
@@ -83,7 +83,7 @@ const Page = sequelize.define('Page', {
 });
 
 Lesson.hasMany(Page, {foreignKey: 'lessonId'});
-Page.belongsTo(Lesson, {foreignKey: 'lessonId'});
+Page.belongsTo(Lesson, {foreignKey: 'lessonId', onDelete: 'CASCADE'});
 
 const User = sequelize.define('User', {
     id: {
@@ -125,16 +125,15 @@ const UserProgress = sequelize.define('UserProgress', {
 });
 
 User.hasMany(UserProgress);
-UserProgress.belongsTo(User);
+UserProgress.belongsTo(User, {onDelete: 'CASCADE'});
 
 Lesson.hasMany(UserProgress);
-UserProgress.belongsTo(Lesson);
+UserProgress.belongsTo(Lesson, {onDelete: 'CASCADE'});
 
 const Question = sequelize.define('Question', {
     id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+        type: DataTypes.STRING,
+        primaryKey: true
     },
     type: {
         type: DataTypes.ENUM("multipleChoice", "code"),
@@ -147,7 +146,7 @@ const Question = sequelize.define('Question', {
 });
 
 Lesson.hasMany(Question, {foreignKey: 'lessonId'});
-Question.belongsTo(Lesson, {foreignKey: 'lessonId'});
+Question.belongsTo(Lesson, {foreignKey: 'lessonId', onDelete: 'CASCADE'});
 
 const UserAnswer = sequelize.define('UserAnswer', {
     id: {
@@ -162,10 +161,10 @@ const UserAnswer = sequelize.define('UserAnswer', {
 });
 
 UserProgress.hasMany(UserAnswer, {foreignKey: 'userProgressId'});
-UserAnswer.belongsTo(UserProgress, {foreignKey: 'userProgressId'});
+UserAnswer.belongsTo(UserProgress, {foreignKey: 'userProgressId', onDelete: 'CASCADE'});
 
 Question.hasMany(UserAnswer, {foreignKey: 'questionId'});
-UserAnswer.belongsTo(Question, {foreignKey: 'questionId'});
+UserAnswer.belongsTo(Question, {foreignKey: 'questionId', onDelete: 'CASCADE'});
 
 module.exports = {
     sequelize: sequelize,

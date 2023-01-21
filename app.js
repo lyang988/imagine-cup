@@ -12,78 +12,59 @@ const { appendFile } = require('fs');
 const http = require('http');
 
 const db = require('./dbConfig');
+const test = require('./test');
 
 db.sequelize.authenticate().then(() => {
     console.log("Database connected");
     db.sequelize.sync({force: true}).then(() => {
         console.log("Database synced");
-        db.LessonPlan.create({
-            lang1: "Python",
-            lang2: "Java"
-        }).then((lessonPlan) => {
-            db.Lesson.create({
-                lessonPlanId: lessonPlan.id,
-                unit: 1,
-                num: 1,
-                name: "Semicolons and Brackets",
-                numPages: 1
-            }).then((lesson) => {
-                db.Page.create({
-                    page: 1,
-                    pageData: { arr: require("./test")
-            //             [{"type": "regular", "text": "Here are two functions that print the bigger of the two arguments: (Top- Python, Bottom- Java)"},
-            //     {"iscode":true,"language": "python","type": "code", "text": "def print_bigger(a, b):\n    if a > b:\n        print(a)\n    else:\n        print(b)"},
-            //     {"iscode":true,"language": "java","type": "code", "text": "import java.io.*;\n\nvoid printBigger(int a, int b){\n    if (a > b) {\n        System.out.println(a); \n    } else {\n        System.out.println(b); \n    } \n}"},
-            //     {"type": "regular", "text": "Notice that the overall structure of the code is very similar, but the specific syntax is quite different. For instance, instead of using colons and indentation, Java uses curly brackets ("},
-            //     {"iscodetext":true,"language": "java","type": "codetext", "text": "{"},
-            //     {"type": "regular", "text": ", "},
-            //     {"iscodetext":true,"language": "java", "type": "codetext", "text": "}"},
-            //     {"type": "regular", "text": ") to specify function and if-statement bodies. Also, statements in Java end in a semicolon ("},
-            //     {"iscodetext":true,"language": "java","type": "codetext", "text": ";"},
-            //     {"type": "regular", "text": "). There are some other big differences that we will explore soon, but these two are the most visible - and easy to forget!\n "},
-            //     {"islinebreak": true, "type": "linebreak"},
-            //     {"isquestion": true, "questionId": 1},
-            //     {"isquestion": true, "questionId": 2},
-            //     {"istable":true, "type": "table", "array": [{" ":"Code Blocks and Control Flow","Python":"Use colons and indentation","Java":"Use opening and closing curly brackets: {, }"},
-            //     {" ":"Semicolons Ending Statements","Python":"Unnecessary (and proscribed)","Java":"Necessary"}
-            //     ]}
-            // ]
-                    },
-                    lessonId: lesson.id
-                }).then((page) => {
-                    db.Question.create({
-                        type: "multipleChoice",
-                        data: JSON.stringify({
-                            question: "The answer is A",
-                            options: ["A", "B", "C", "D"],
-                            answer: "A"
-                        }),
-                        lessonId: lesson.id
-                    }).then((question) => {
-                        db.Question.create({
-                            type: "multipleChoice",
-                            data: JSON.stringify({
-                                question: "The answer is B",
-                                options: ["A", "B", "C", "D"],
-                                answer: "B"
-                            }),
-                            lessonId: lesson.id
-                        }).then((question) => {
-                            console.log("Questions created");
-                        }).catch((err) => {
-                            console.log("Error creating question: " + err);
-                        });
+
+        var lessonPlanPromise = Promise.all(
+            test.lessonPlans.map(async (lessonPlan) => {
+                await db.LessonPlan.create(lessonPlan);
+            })
+        );
+
+        lessonPlanPromise.then((_) => {
+            var lessonPromises = Promise.all(
+                test.lessons.map(async (lesson) => {
+                    var dbLesson = await db.Lesson.create(lesson.lesson);
+                    var dbLessonPlan = await db.LessonPlan.findOne({where: lesson.lessonPlan});
+                    await dbLessonPlan.addLesson(dbLesson);
+                })
+            );
+
+            lessonPromises.then((_) => {
+                var pagePromises = Promise.all(
+                    test.pages.map(async (page) => {
+                        var dbPage = await db.Page.create(page.page);
+                        var dbLesson = await db.Lesson.findOne({where: {name: page.lessonName}});
+                        await dbLesson.addPage(dbPage);
+                    })
+                );
+
+                pagePromises.then((_) => {
+                    var questionPromises = Promise.all(
+                        test.questions.map(async (question) => {
+                            var dbQuestion = await db.Question.create(question.question);
+                            var dbLesson = await db.Lesson.findOne({where: {name: question.lessonName}});
+                            await dbLesson.addQuestion(dbQuestion);
+                        })
+                    );
+
+                    questionPromises.then((_) => {
+                        console.log("Done");
                     }).catch((err) => {
-                        console.log("Error creating question: " + err);
+                        console.log("Unable to create questions: " + err);
                     });
                 }).catch((err) => {
-                    console.log("Error creating page: " + err);
+                    console.log("Unable to create pages: " + err);
                 });
             }).catch((err) => {
-                console.log("Error creating lesson: " + err);
+                console.log("Unable to create lessons: " + err);
             });
         }).catch((err) => {
-            console.log("Error creating lesson plan: " + err);
+            console.log("Unable to create lesson plans: " + err);
         });
     }).catch((err) => {
         console.log("Error syncing database: " + err);
