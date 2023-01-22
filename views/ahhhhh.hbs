@@ -101,7 +101,11 @@
           </button>
           <p id = "res{{questionId}}"></p>
            {{else}}
+           {{#if iside}}
+              <div id="container" style="width: 800px; height: 300px; border: 1px solid grey"></div>
+           {{else}}
            <div class = {{this.type}}>{{this.text}}</div>
+           {{/if}}
            {{/if}}
            {{/if}}
            {{/if}}
@@ -111,9 +115,21 @@
     </div>
     <script type="text/javascript">
         const arr = {{{ json arr }}}
+        const ideval = {{{ json ideval }}}
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="/scripts/prism.js"></script>
     <script src="/scripts/atest.js"></script>
+    <script src="monaco-editor/vs/loader.js"></script>
+		<script>
+			require.config({ paths: { vs: 'monaco-editor/vs' } });
+
+			require(['vs/editor/editor.main'], function () {
+				var editor = monaco.editor.create(document.getElementById('container'), {
+					value: ideval.join('\n'),
+					language: 'java'
+				});
+			});
+		</script>
    </body>
 </html>

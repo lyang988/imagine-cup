@@ -177,6 +177,7 @@ async function aTest(req, res, next){
         lessonname: lesson.name,
         unitnumber: lesson.unit,
         arr: modifiedArr,
+        ideval : ['int multiply() {', '\t// MODIFY CODE FROM HERE;', '\treturn c;','}'],
         json: function(obj) {
             return JSON.stringify(obj);
         }

@@ -52,6 +52,17 @@ var ints = [
     {"islinebreak": true, "type": "linebreak"},
     {"type": "regular", "text": "In Java, the addition (+), subtraction (-), multiplication (*), division (/), and modulus (%) operators work effectively identically to Python. Hexadecimal and binary literals (0x… and 0b…) work in an identical manner in Java as in Python, with the caveat of maximum sizes mentioned below."},
     {"islinebreak": true, "type": "linebreak"},
+    {"type": "regular", "text": "Now you can have a try: write some Java code that multiplies the "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "int"},
+    {"type": "regular", "text": " variables "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "a"},
+    {"type": "regular", "text": " and "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "b"},
+    {"type": "regular", "text": ", and stores this in a new (as-yet undeclared) variable "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "c"},
+    {"type": "regular", "text": ":"},
+    {"iside": true, "questionId": "Java_Python_intIDE", "language": "java",},
+    {"islinebreak": true, "type": "linebreak"},
     {"type": "regular", "text": "Java has the "},
     {"iscodetext":true,"language": "java", "type": "codetext", "text": "+=x"},
     {"type": "regular", "text": ", "},
@@ -381,6 +392,10 @@ var questions = [
         ],
         options: ["You cannot use the `int` type in Java - the correct type is `Integer`", "This code declares `i` twice; the third line should not include the type of `i` (`int`)", "The `+` operator does not exist in Java - you must write `i.add(j)`", "There is nothing wrong with this code"],
         answer: "This code declares `i` twice; the third line should not include the type of `i` (`int`)"
+    })}},
+    {lessonName: "Types and Integers", question: {id: "Java_Python_intIDE", type: "code", data: JSON.stringify({
+        language : "Java",
+        value : ['int multiply() {', '\t// MODIFY CODE FROM HERE;', '\treturn c;','}']
     })}},
     {lessonName: "Types and Integers", question: {id: "Ints_MCQ2", type: "multipleChoice", data: JSON.stringify({
         question: [
