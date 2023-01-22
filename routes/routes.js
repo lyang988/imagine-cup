@@ -413,6 +413,7 @@ module.exports = function(app, dbInjected) {
     app.get("/setLanguage", setLanguage);
     app.get("/accountPage", accountPage);
     app.get("/multipleChoiceAnswer", multipleChoiceAnswer);
+    app.get("/test", function(req, res){res.sendFile("views/test.html", {root: __dirname + "/../"})})
 
     app.post("/deleteAccount", deleteAccount);
 
