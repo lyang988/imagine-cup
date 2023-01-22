@@ -415,7 +415,7 @@ var questions = [
         answer: "This code declares `i` twice; the third line should not include the type of `i` (`int`)"
     })}},
     {lessonName: "Types and Integers", question: {id: "Java_Python_intIDE", type: "code", data: JSON.stringify({
-        language : "Java",
+        language : "java",
         startercode : ['int multiply() {', '\t// MODIFY CODE FROM HERE;', '\treturn c;','}']
     })}},
     {lessonName: "Types and Integers", question: {id: "Ints_MCQ2", type: "multipleChoice", data: JSON.stringify({

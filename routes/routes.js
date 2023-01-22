@@ -118,10 +118,22 @@ async function aTest(req, res, next){
     }
 
     var pages = await lesson.getPages({where: {page: progress.currentPage}});
-    if (pages.length !== 1) return next(new Error("Not one page"));
+    if (pages.length !== 1) return res.render('ahhhhh', {
+        lang1: lessonPlan.lang1,
+        lang2: lessonPlan.lang2,
+        lessonname: lesson.name,
+        unitnumber: lesson.unit,
+        arr: [
+            {"type": "regular", "text": "Not yet implemented "},
+        ],
+        json: function(obj) {
+            return JSON.stringify(obj);
+        }
+    });
 
     var page = pages[0];
 
+    var ideval = null;
     var modifiedArr = [];
     for (var elem of page.pageData.arr) {
         if (elem.isquestion) {
@@ -160,14 +172,25 @@ async function aTest(req, res, next){
                     questionId: questionId,
                     question: questionData.question,
                     options: options,
-                    questionId: questionId,
                     answer: questionData.answer,
                     currentAnswer: questionData.currentAnswer
+                });
+            } else if (question.type === "code") {
+                // TODO load user answer if given
+
+                ideval = questionData.startercode;
+                modifiedArr.push({
+                    iside: true,
+                    questionId: questionId,
+                    language: questionData.language,
+                    currentAnswer: null
                 });
             } else {
                 return next(new Error("Question type not supported"));
             }
         } else {
+            // It's not question, so it should just be added to the modified array
+
             modifiedArr.push(elem);
         }
     }
@@ -178,7 +201,7 @@ async function aTest(req, res, next){
         lessonname: lesson.name,
         unitnumber: lesson.unit,
         arr: modifiedArr,
-        ideval : ['int multiply() {', '\t// MODIFY CODE FROM HERE;', '\treturn c;','}'],
+        ideval: ideval,
         json: function(obj) {
             return JSON.stringify(obj);
         }
