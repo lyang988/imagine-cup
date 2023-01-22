@@ -178,7 +178,7 @@ async function aTest(req, res, next){
             } else if (question.type === "code") {
                 // TODO load user answer if given
 
-                ideval = questionData.startercode;
+                ideval = {startercode: questionData.startercode, questionId: questionId};
                 modifiedArr.push({
                     iside: true,
                     questionId: questionId,

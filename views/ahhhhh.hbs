@@ -103,6 +103,10 @@
            {{else}}
            {{#if iside}}
               <div id="container" style="width: 800px; height: 300px; border: 1px solid grey"></div>
+              <button type="button" id = "submitidebutton" class="btn btn-outline-blue">
+            Submit
+          </button>
+          <p id = "ideres"></p>
            {{else}}
            <div class = {{this.type}}>{{this.text}}</div>
            {{/if}}
@@ -124,12 +128,35 @@
 		<script>
 			require.config({ paths: { vs: 'monaco-editor/vs' } });
 
+
 			require(['vs/editor/editor.main'], function () {
 				var editor = monaco.editor.create(document.getElementById('container'), {
-					value: ideval.join('\n'),
+					value: ideval.startercode.join('\n'),
 					language: 'java'
 				});
-			});
+        function saveI() 
+        {
+            getVal = editor.getValue()
+            // get the value of the data
+            console.log(getVal)
+            data = {"userCode": getVal, "questionID": ideval.questionId}
+            console.log(data)
+            console.log('hello');
+            var ajax_params = {
+              'url'     : "codeQuestionAnswer",
+              'type'    : "post",
+              'data'    : data,
+              'success' : onServerResponse
+            }
+        
+            $.ajax( ajax_params )
+          }
+          document.getElementById('submitidebutton').onclick = saveI;
+			  });
+        function onServerResponse (responseText) {
+          var ideres = document.getElementById("ideres")
+          res.innerHTML = responseText
+        }
 		</script>
    </body>
 </html>
