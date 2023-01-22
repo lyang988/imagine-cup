@@ -62,6 +62,8 @@ var ints = [
     {"iscodetext":true,"language": "java", "type": "codetext", "text": "c"},
     {"type": "regular", "text": ":"},
     {"isquestion": true, "questionId": "Java_Python_intIDE"},
+    {"type": "regular", "text": "Here's the equivalent Python code:"},
+    {"iscode":true,"language": "python","type": "code", "text": "def multiply_logic(a : int, b : int):\n    // Modified section\n\n    c : int = a * b\n\n    // End of modified section\n    return c\n"},
     {"islinebreak": true, "type": "linebreak"},
     {"type": "regular", "text": "Java has the "},
     {"iscodetext":true,"language": "java", "type": "codetext", "text": "+=x"},
@@ -334,6 +336,25 @@ var boolandif = [
     {"islinebreak": true, "type": "linebreak"},
     {"type": "regular", "text": "Generally, if there is only one statement in a singular if statement, it is good style to omit the brackets:"},
     {"iscode":true,"language": "java","type": "code", "text": "if (x == 0) x++;"},
+    {"type": "regular", "text": "Now try doing it yourself. Write Java code to set the value of a declared "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "int"},
+    {"type": "regular", "text": " variable "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "b"},
+    {"type": "regular", "text": " to "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "8"},
+    {"type": "regular", "text": " if the "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "int"},
+    {"type": "regular", "text": " variable "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "a"},
+    {"type": "regular", "text": " is even, otherwise "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "9"},
+    {"type": "regular", "text": " if "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "a"},
+    {"type": "regular", "text": " is divisible by three or otherwise, set it to "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "7"},
+    {"isquestion": true, "questionId": "Bools_IDE"},
+    {"type": "regular", "text": "Equivalent Python Code"},
+    {"iscode":true,"language": "python","type": "code", "text": "def even_odd_numbers(a : int) -> int:\n// Modified section\nif a % 2 == 0:\n    # Even!\n    b = 8\nelif a % 3 == 0:\n    # Divisible by 3\n    b = 9\nelse:\n    b = 7\n// End of modified section\nreturn b\n"},
     {"isquestion": true, "questionId": "Bools_MCQ1"},
 ]
 
@@ -416,7 +437,7 @@ var questions = [
     })}},
     {lessonName: "Types and Integers", question: {id: "Java_Python_intIDE", type: "code", data: JSON.stringify({
         language : "java",
-        startercode : ['int multiply() {', '\t// MODIFY CODE FROM HERE;', '\treturn c;','}']
+        startercode : ['int multiplyLogic(int a, int b) {', '\t// MODIFY CODE FROM HERE;', '\t','\t', '\t// DO NOT MODIFY PAST THIS LINE;','\treturn c;','}']
     })}},
     {lessonName: "Types and Integers", question: {id: "Ints_MCQ2", type: "multipleChoice", data: JSON.stringify({
         question: [
@@ -442,6 +463,10 @@ var questions = [
         ],
         options: ["Yes", "No"],
         answer: "No"
+    })}},
+    {lessonName: "Simple Data Types: Booleans", question: {id: "Bools_IDE", type: "code", data: JSON.stringify({
+        language : "java",
+        startercode : ['int evenOddNumbers(int a) {', '\tint b;','\t// MODIFY FROM THIS LINE', , '\t','\t',,'\t// DO NOT MODIFY PAST THIS LINE','\treturn b;','}']
     })}},
 ]
 
