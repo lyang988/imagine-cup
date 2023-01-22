@@ -360,7 +360,28 @@ var lessons = [
     {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Types and Integers", unit: 1, num: 2, numPages: 1}},
     {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Strings", unit: 1, num: 3, numPages: 1}},
     {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Doubles, Floats, and Longs", unit: 1, num: 4, numPages: 1}},
-    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Booleans", unit: 1, num: 5, numPages: 1}}
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Simple Data Types: Booleans", unit: 1, num: 5, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Loops: While Loops", unit: 2, num: 6, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Loops: For Loops and For each Loops", unit: 2, num: 7, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "List-like Structures: Arrays", unit: 2, num: 8, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "List-like Structures: ArrayLists", unit: 2, num: 9, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Iteration with List-like Structures", unit: 2, num: 10, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Advanced Strings: Comparison", unit: 2, num: 11, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Creating Functions", unit: 3, num: 12, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Creating Basic Classes", unit: 3, num: 13, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Inheritance of Classes", unit: 3, num: 14, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Abstract Classes and Interfaces", unit: 3, num: 15, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Objects", unit: 3, num: 16, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Importing Other Classes", unit: 3, num: 17, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Three Types of Dictionary", unit: 4, num: 18, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Set Objects", unit: 4, num: 19, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Queues and Priority Queues", unit: 4, num: 20, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Stack Objects", unit: 4, num: 21, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Tree Objects", unit: 4, num: 22, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Miscellaneous Mathematical Operations", unit: 5, num: 23, numPages: 1}},
+    {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Setting Up a Project", unit: 5, num: 24, numPages: 1}},
+
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Setting Up a Project", unit: 1, num: 1, numPages: 1}},
 ]
 
 var pages = [
