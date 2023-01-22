@@ -29,6 +29,7 @@ async function indexEndpoint(req, res, next){
             if (unit !== previousUnit) {
                 info.push({unitnumber: previousUnit, unitlessons: currentUnit});
                 currentUnit = [];
+                previousUnit = unit;
             }
 
             var completed = false;
