@@ -61,7 +61,7 @@ var ints = [
     {"type": "regular", "text": ", and stores this in a new (as-yet undeclared) variable "},
     {"iscodetext":true,"language": "java", "type": "codetext", "text": "c"},
     {"type": "regular", "text": ":"},
-    {"iside": true, "questionId": "Java_Python_intIDE", "language": "java",},
+    {"isquestion": true, "questionId": "Java_Python_intIDE"},
     {"islinebreak": true, "type": "linebreak"},
     {"type": "regular", "text": "Java has the "},
     {"iscodetext":true,"language": "java", "type": "codetext", "text": "+=x"},
@@ -395,7 +395,7 @@ var questions = [
     })}},
     {lessonName: "Types and Integers", question: {id: "Java_Python_intIDE", type: "code", data: JSON.stringify({
         language : "Java",
-        value : ['int multiply() {', '\t// MODIFY CODE FROM HERE;', '\treturn c;','}']
+        startercode : ['int multiply() {', '\t// MODIFY CODE FROM HERE;', '\treturn c;','}']
     })}},
     {lessonName: "Types and Integers", question: {id: "Ints_MCQ2", type: "multipleChoice", data: JSON.stringify({
         question: [
