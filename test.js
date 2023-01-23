@@ -357,6 +357,12 @@ var boolandif = [
     {"iscode":true,"language": "python","type": "code", "text": "def even_odd_numbers(a : int) -> int:\n// Modified section\nif a % 2 == 0:\n    # Even!\n    b = 8\nelif a % 3 == 0:\n    # Divisible by 3\n    b = 9\nelse:\n    b = 7\n// End of modified section\nreturn b\n"},
     {"isquestion": true, "questionId": "Bools_MCQ1"},
 ]
+var ocamlsml = [
+    {"type": "regular", "text": "OCaml and SML are both ML Languages."},
+]
+var introC = [
+    {"type": "regular", "text": "C is a language under a category called coding languages unlike Python."},
+]
 
 var template = [
     {"istable":true, "type": "table", "array": [{" ":"Code Blocks and Control Flow","Python":"Use colons and indentation","Java":"Use opening and closing curly brackets: {, }"},
@@ -402,7 +408,21 @@ var lessons = [
     {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Miscellaneous Mathematical Operations", unit: 5, num: 23, numPages: 1}},
     {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Setting Up a Project", unit: 5, num: 24, numPages: 1}},
 
-    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Setting Up a Project", unit: 1, num: 1, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Getting Started on OCaml", unit: 1, num: 1, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Types: Primitives", unit: 1, num: 2, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Types: Functions", unit: 1, num: 3, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Types: Lists and Options", unit: 1, num: 4, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Basic Syntax and Evaluation", unit: 1, num: 5, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Tail Recursion", unit: 2, num: 6, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Parametric Polymorphism", unit: 2, num: 7, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "HOFs and Currying", unit: 2, num: 8, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Control Flow: CPS", unit: 2, num: 9, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Modules and Functors", unit: 3, num: 10, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Lazy Evaluation", unit: 3, num: 11, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Sequences", unit: 3, num: 12, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Other Important Concepts", unit: 3, num: 13, numPages: 1}},
+
+    {lessonPlan: {lang1: "Python", lang2: "C"}, lesson: {name: "Getting Started with C", unit: 1, num: 1, numPages: 1}},
 ]
 
 var pages = [
@@ -410,7 +430,9 @@ var pages = [
     {lessonName: "Types and Integers", page: {page: 1, pageData: {arr: ints}}},
     {lessonName: "Simple Data Types: Strings", page: {page: 1, pageData: {arr: stringandprint}}},
     {lessonName: "Doubles, Floats, and Longs", page: {page: 1, pageData: {arr: floatlongdouble}}},
-    {lessonName: "Simple Data Types: Booleans", page: {page: 1, pageData: {arr: boolandif}}}
+    {lessonName: "Simple Data Types: Booleans", page: {page: 1, pageData: {arr: boolandif}}},
+    {lessonName: "Getting Started on OCaml", page: {page: 1, pageData: {arr: ocamlsml}}},
+    {lessonName: "Getting Started with C", page: {page: 1, pageData: {arr: introC}}}
 ]
 
 var questions = [
