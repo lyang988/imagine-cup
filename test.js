@@ -62,6 +62,8 @@ var ints = [
     {"iscodetext":true,"language": "java", "type": "codetext", "text": "c"},
     {"type": "regular", "text": ":"},
     {"isquestion": true, "questionId": "Java_Python_intIDE"},
+    {"type": "regular", "text": "Here's the equivalent Python code:"},
+    {"iscode":true,"language": "python","type": "code", "text": "def multiply_logic(a : int, b : int):\n    // Modified section\n\n    c : int = a * b\n\n    // End of modified section\n    return c\n"},
     {"islinebreak": true, "type": "linebreak"},
     {"type": "regular", "text": "Java has the "},
     {"iscodetext":true,"language": "java", "type": "codetext", "text": "+=x"},
@@ -334,7 +336,32 @@ var boolandif = [
     {"islinebreak": true, "type": "linebreak"},
     {"type": "regular", "text": "Generally, if there is only one statement in a singular if statement, it is good style to omit the brackets:"},
     {"iscode":true,"language": "java","type": "code", "text": "if (x == 0) x++;"},
+    {"type": "regular", "text": "Now try doing it yourself. Write Java code to set the value of a declared "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "int"},
+    {"type": "regular", "text": " variable "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "b"},
+    {"type": "regular", "text": " to "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "8"},
+    {"type": "regular", "text": " if the "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "int"},
+    {"type": "regular", "text": " variable "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "a"},
+    {"type": "regular", "text": " is even, otherwise "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "9"},
+    {"type": "regular", "text": " if "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "a"},
+    {"type": "regular", "text": " is divisible by three or otherwise, set it to "},
+    {"iscodetext":true,"language": "java", "type": "codetext", "text": "7"},
+    {"isquestion": true, "questionId": "Bools_IDE"},
+    {"type": "regular", "text": "Equivalent Python Code"},
+    {"iscode":true,"language": "python","type": "code", "text": "def even_odd_numbers(a : int) -> int:\n// Modified section\nif a % 2 == 0:\n    # Even!\n    b = 8\nelif a % 3 == 0:\n    # Divisible by 3\n    b = 9\nelse:\n    b = 7\n// End of modified section\nreturn b\n"},
     {"isquestion": true, "questionId": "Bools_MCQ1"},
+]
+var ocamlsml = [
+    {"type": "regular", "text": "OCaml and SML are both ML Languages."},
+]
+var introC = [
+    {"type": "regular", "text": "C is a language under a category called coding languages unlike Python."},
 ]
 
 var template = [
@@ -381,7 +408,21 @@ var lessons = [
     {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Miscellaneous Mathematical Operations", unit: 5, num: 23, numPages: 1}},
     {lessonPlan: {lang1: "Python", lang2: "Java"}, lesson: {name: "Setting Up a Project", unit: 5, num: 24, numPages: 1}},
 
-    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Setting Up a Project", unit: 1, num: 1, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Getting Started on OCaml", unit: 1, num: 1, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Types: Primitives", unit: 1, num: 2, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Types: Functions", unit: 1, num: 3, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Types: Lists and Options", unit: 1, num: 4, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Basic Syntax and Evaluation", unit: 1, num: 5, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Tail Recursion", unit: 2, num: 6, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Parametric Polymorphism", unit: 2, num: 7, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "HOFs and Currying", unit: 2, num: 8, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Control Flow: CPS", unit: 2, num: 9, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Modules and Functors", unit: 3, num: 10, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Lazy Evaluation", unit: 3, num: 11, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Sequences", unit: 3, num: 12, numPages: 1}},
+    {lessonPlan: {lang1: "SML", lang2: "OCaml"}, lesson: {name: "Other Important Concepts", unit: 3, num: 13, numPages: 1}},
+
+    {lessonPlan: {lang1: "Python", lang2: "C"}, lesson: {name: "Getting Started with C", unit: 1, num: 1, numPages: 1}},
 ]
 
 var pages = [
@@ -389,7 +430,9 @@ var pages = [
     {lessonName: "Types and Integers", page: {page: 1, pageData: {arr: ints}}},
     {lessonName: "Simple Data Types: Strings", page: {page: 1, pageData: {arr: stringandprint}}},
     {lessonName: "Doubles, Floats, and Longs", page: {page: 1, pageData: {arr: floatlongdouble}}},
-    {lessonName: "Simple Data Types: Booleans", page: {page: 1, pageData: {arr: boolandif}}}
+    {lessonName: "Simple Data Types: Booleans", page: {page: 1, pageData: {arr: boolandif}}},
+    {lessonName: "Getting Started on OCaml", page: {page: 1, pageData: {arr: ocamlsml}}},
+    {lessonName: "Getting Started with C", page: {page: 1, pageData: {arr: introC}}}
 ]
 
 var questions = [
@@ -447,6 +490,10 @@ var questions = [
         ],
         options: ["Yes", "No"],
         answer: "No"
+    })}},
+    {lessonName: "Simple Data Types: Booleans", question: {id: "Bools_IDE", type: "code", data: JSON.stringify({
+        language : "java",
+        startercode : ['int evenOddNumbers(int a) {', '\tint b;','\t// MODIFY FROM THIS LINE', , '\t','\t',,'\t// DO NOT MODIFY PAST THIS LINE','\treturn b;','}']
     })}},
 ]
 
