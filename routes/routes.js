@@ -1,5 +1,6 @@
 var path = require('path');
 var authRouterFunc = require("./auth");
+const axios = require('axios');
 
 var db = null;
 
@@ -153,15 +154,15 @@ async function aTest(req, res, next){
 
             var questionData = JSON.parse(question.data);
 
-            if (question.type === "multipleChoice") {
-                if (question.UserAnswers.length === 0) {
-                    questionData.currentAnswer = null;
-                } else if (question.UserAnswers.length === 1) {
-                    questionData.currentAnswer = JSON.parse(question.UserAnswers[0].data).answer;
-                } else {
-                    return next(new Error("Too many answers"));
-                }
+            if (question.UserAnswers.length === 0) {
+                questionData.currentAnswer = null;
+            } else if (question.UserAnswers.length === 1) {
+                questionData.currentAnswer = JSON.parse(question.UserAnswers[0].data).answer;
+            } else {
+                return next(new Error("Too many answers"));
+            }
 
+            if (question.type === "multipleChoice") {
                 var options = [];
                 for (var option of questionData.options) {
                     options.push({option: option, questionId: questionId});
@@ -178,7 +179,12 @@ async function aTest(req, res, next){
             } else if (question.type === "code") {
                 // TODO load user answer if given
 
-                ideval = {startercode: questionData.startercode, questionId: questionId};
+                if (questionData.currentAnswer !== null) {
+                    ideval = {startercode: [questionData.currentAnswer], questionId: questionId};
+                } else {
+                    ideval = {startercode: questionData.startercode, questionId: questionId};
+                }
+
                 modifiedArr.push({
                     iside: true,
                     questionId: questionId,
@@ -426,6 +432,76 @@ async function deleteAccount(req, res, next) {
     res.sendStatus(200);
 }
 
+async function codeQuestionAnswer(req, res, next) {
+    if (!req.session.isAuthenticated) {
+        return res.sendStatus(403);
+    }
+
+    var code = req.body.userCode;
+    var questionId = req.body.questionID;
+
+    var question = await db.Question.findByPk(questionId);
+    if (!question) return next(new Error("Question not found"));
+    if (question.type !== "code") return next(new Error("Question type not supported"));
+
+    var progress = await db.UserProgress.findOne({
+        where: {
+            userId: req.session.userId,
+            lessonId: question.lessonId
+        }
+    });
+    if (!progress) return next(new Error("Progress not found"));
+
+    var [userAnswer, _] = await db.UserAnswer.findOrCreate({
+        where: {
+            questionId: question.id,
+            userProgressId: progress.id
+        },
+        defaults: {
+            data: '',
+            correct: false
+        }
+    });
+
+    userAnswer.data = JSON.stringify({answer: code});
+
+    var questionData = JSON.parse(question.data);
+
+    runRequestObject = {
+        userCode: code,
+        compilationCommand: questionData.compilationCommand,
+        executionCommand: questionData.executionCommand,
+        input: questionData.input,
+        timeout: questionData.timeout,
+        expectedOutput: questionData.expectedOutput
+    }
+
+    var runResponse = await axios.post("http://salmonrunner1.internal.cloudapp.net:3073/api/submitCode", runRequestObject);
+
+    userAnswer.correct = runResponse.data.status === "success";
+    await userAnswer.save();
+
+    await updateLessonCompletion(progress, question);
+
+    switch (runResponse.data.status) {
+        case "success":
+            return res.send("Correct answer!");
+    
+        case "compilationError":
+            // This case does not yet exist
+            return res.send("Compilation error: " + runResponse.data.error);
+
+        case "failure":
+            return res.send("Incorrect answer");
+
+        case "timeout":
+            return res.send("Your code timed out");
+
+        default:
+            return res.send("Unknown server error");
+    }
+}
+
 module.exports = function(app, dbInjected) {
     db = dbInjected;
 
@@ -441,6 +517,7 @@ module.exports = function(app, dbInjected) {
     app.get("/test", function(req, res){res.sendFile("views/test.html", {root: __dirname + "/../"})})
 
     app.post("/deleteAccount", deleteAccount);
+    app.post("/codeQuestionAnswer", codeQuestionAnswer);
 
     app.get("/*", function(req,res){
         res.send("Not a valid page");

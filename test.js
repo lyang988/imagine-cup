@@ -416,7 +416,12 @@ var questions = [
     })}},
     {lessonName: "Types and Integers", question: {id: "Java_Python_intIDE", type: "code", data: JSON.stringify({
         language : "java",
-        startercode : ['int multiply() {', '\t// MODIFY CODE FROM HERE;', '\treturn c;','}']
+        startercode : ['import java.util.ArrayList;', 'import java.util.Scanner;', 'import java.io.File;', '', 'class Main {', '\tprivate static int multiply(int a, int b) {', '\t\t// MODIFY CODE FROM HERE', '', '', '', '\t\t// DO NOT MODIFY PAST THIS LINE', '\t\treturn c;', '\t}', '', ' \tpublic static void main(String[] args) throws Exception {', '\t\tString filename = args[0];', '\t\tScanner scanner = new Scanner(new File(filename));', '', '\t\tArrayList<Integer> arr = new ArrayList<>();', '\t\twhile (scanner.hasNextInt()) {', '\t\t\tarr.add(scanner.nextInt());', '\t\t}', '', '\t\tfor (int i = 0; i < arr.size() - 1; i += 2) {', '\t\t\tSystem.out.println(multiply(arr.get(i), arr.get(i+1)));', '\t\t}', '\t}', '}', ''],
+        compilationCommand: "javac Main.java",
+        executionCommand: "java Main input.txt",
+        input: "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n0\n23\n35\n0\n-3\n4\n-5\n-6\n2\n-9\n",
+        timeout: 5,
+        expectedOutput: "2\n12\n30\n56\n90\n0\n0\n-12\n30\n-18\n"
     })}},
     {lessonName: "Types and Integers", question: {id: "Ints_MCQ2", type: "multipleChoice", data: JSON.stringify({
         question: [

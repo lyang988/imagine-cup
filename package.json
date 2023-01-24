@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@azure/msal-node": "^1.14.5",
+    "axios": "^1.2.3",
     "bootstrap3": "^3.3.5",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
