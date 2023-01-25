@@ -248,7 +248,7 @@ var floatlongdouble = [
     {"type": "regular", "text": " in Python. Floating point numbers in Java default as a double."},
     {"islinebreak": true, "type": "linebreak"},
     {"type": "regular", "text": "Example primitive definitions:"},
-    {"iscode":true,"language": "java","type": "code", "text": "int i1 = 2147483647 // Allowed\nint i2 = 2147483648 // Not allowed (Integer overflow error)\nlong l = int i = 2147483648 // Allowed\ndouble d = 5.0/1.5 //Allowed\n\nIf (i < 99.9) {...} // The 99.9 is default typed as a double\n"},
+    {"iscode":true,"language": "java","type": "code", "text": "int i1 = 2147483647 // Allowed\nint i2 = 2147483648 // Not allowed (Integer overflow error)\nlong l = int i = 2147483648 // Allowed\ndouble d = 5.0/1.5 //Allowed\n\nif (i < 99.9) {...} // The 99.9 is default typed as a double\n"},
 ]
 
 var boolandif = [
