@@ -248,7 +248,7 @@ var floatlongdouble = [
     {"type": "regular", "text": " in Python. Floating point numbers in Java default as a double."},
     {"islinebreak": true, "type": "linebreak"},
     {"type": "regular", "text": "Example primitive definitions:"},
-    {"iscode":true,"language": "java","type": "code", "text": "int i1 = 2147483647 // Allowed\nint i2 = 2147483648 // Not allowed (Integer overflow error)\nlong l = int i = 2147483648 // Allowed\ndouble d = 5.0/1.5 //Allowed\n\nIf (i < 99.9) {...} // The 99.9 is default typed as a double\n"},
+    {"iscode":true,"language": "java","type": "code", "text": "int i1 = 2147483647 // Allowed\nint i2 = 2147483648 // Not allowed (Integer overflow error)\nlong l = int i = 2147483648 // Allowed\ndouble d = 5.0/1.5 //Allowed\n\nif (i < 99.9) {...} // The 99.9 is default typed as a double\n"},
 ]
 
 var boolandif = [
@@ -358,10 +358,27 @@ var boolandif = [
     {"isquestion": true, "questionId": "Bools_MCQ1"},
 ]
 var ocamlsml = [
-    {"type": "regular", "text": "OCaml and SML are both ML Languages."},
+    {"type": "regular", "text": "Both being part of the ML language family, SML and OCaml are very similar. The main differences come in terms of small syntax, ease-of-use, and stylistic features."},
+    {"islinebreak": true, "type": "linebreak"},
+    {"type": "regular", "text": "Most classically, SML is the more formal laguage whereas OCaml comes equipped with some useful shortcuts and syntactic sugar to make programming more efficient."},
+    {"iscode": true, "language": "java", "type": "code", "text": "val example = \"Hello World\";\nval letterE = String.sub (example, 1);"},
+    {"iscode": true, "language": "javascript", "type": "code", "text": "let example = \"Hello World\";\nlet letterE = example.[1];"}
 ]
 var introC = [
-    {"type": "regular", "text": "C is a language under a category called coding languages unlike Python."},
+    {"type": "regular", "text": "Here are two functions that print the bigger of the two arguments: "},
+{"islinebreak": true, "type": "linebreak"},
+{"type": "regular", "text": "Python: "},
+{"iscode":true,"language": "python","type": "code", "text": "def print_bigger(a, b):\n    if a > b:\n        print(a)\n    else:\n        print(b)"},
+{"type": "regular", "text": "C: "},
+{"iscode":true,"language": "c","type": "code", "text": "void printBigger(int a, int b){\n    if (a > b) {\n        printf(\"%d\\n\", a); \n    } else {\n        printf(\"%d\\n\", b); \n    } \n}"},
+{"type": "regular", "text": "Notice that the overall structure of the code is very similar, but the specific syntax is quite different. For instance, instead of using colons and indentation, C uses curly brackets ("},
+{"iscodetext":true,"language": "c","type": "codetext", "text": "{"},
+{"type": "regular", "text": ", "},
+{"iscodetext":true,"language": "c", "type": "codetext", "text": "}"},
+{"type": "regular", "text": ") to specify function and if-statement bodies. Also, statements in C end in a semicolon ("},
+{"iscodetext":true,"language": "c","type": "codetext", "text": ";"},
+{"type": "regular", "text": "). There are some other big differences that we will explore soon, but these two are the most visible - and easy to forget!\n "},
+
 ]
 
 var template = [
