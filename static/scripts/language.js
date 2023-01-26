@@ -32,11 +32,6 @@ function modifylang2(){
     console.log(option1)
     console.log(option2)
     lang2list = langMap[option1]
-    // for( i = 0; i<lang2list.length; i++){
-    //     var a = document.getElementById("lang2"+lang2list[i])
-    //     console.log(a)
-    //     console.log(a.value)
-    // }
     if(option1 == "choose"){
         console.log("hi")
         lang2list = []
@@ -50,6 +45,5 @@ function modifylang2(){
         } else {
             $("#lang2select").append('<option disabled value="'+cur+'">' + cur+'</option>')
         }
-    // now have option.text, option.value
     }
 }
