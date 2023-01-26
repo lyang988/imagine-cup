@@ -17,6 +17,7 @@ async function indexEndpoint(req, res, next){
             ],
             include: {
                 model: db.UserProgress,
+                attributes: ['completed'],
                 where: { userId: req.session.userId },
                 required: false
             }
@@ -118,7 +119,10 @@ async function aTest(req, res, next){
         }
     }
 
-    var pages = await lesson.getPages({where: {page: progress.currentPage}});
+    var pages = await lesson.getPages({
+        where: {page: progress.currentPage}
+    });
+
     if (pages.length !== 1) return res.render('ahhhhh', {
         lang1: lessonPlan.lang1,
         lang2: lessonPlan.lang2,
@@ -260,17 +264,6 @@ async function changeLanguage(req, res, next){
             return JSON.stringify(obj);
         }
     };
-
-    // var obj = {
-    //     lang1 : "Java",
-    //     lang2: "Python",
-    //     lang1s: ["Java", "Python", "C++"],
-    //     lang2s: ["Java", "Python", "Javascript", "C++", "Fakelanguage1", "lies", "MarinaSha"],
-    //     langMap: {"Java": ["Python", "Javascript", "C++"], "Python":["Java", "Fakelanguage1", "lies"], "C++":["Python","MarinaSha"]},
-    //     json: function(obj) {
-    //         return JSON.stringify(obj);
-    //       }
-    // };
 
     res.render('changeLanguage', obj);
 }
@@ -476,7 +469,7 @@ async function codeQuestionAnswer(req, res, next) {
         expectedOutput: questionData.expectedOutput
     }
 
-    var runResponse = await axios.post("http://salmonrunner1.internal.cloudapp.net:3073/api/submitCode", runRequestObject);
+    var runResponse = await axios.post("http://10.0.0.5:3073/api/submitCode", runRequestObject);
 
     userAnswer.correct = runResponse.data.status === "success";
     await userAnswer.save();

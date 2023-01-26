@@ -63,7 +63,7 @@ var ints = [
     {"type": "regular", "text": ":"},
     {"isquestion": true, "questionId": "Java_Python_intIDE"},
     {"type": "regular", "text": "Here's the equivalent Python code:"},
-    {"iscode":true,"language": "python","type": "code", "text": "def multiply_logic(a : int, b : int):\n    // Modified section\n\n    c : int = a * b\n\n    // End of modified section\n    return c\n"},
+    {"iscode":true,"language": "python","type": "code", "text": "def multiply(a : int, b : int) -> int:\n    // Modified section\n\n    c : int = a * b\n\n    // End of modified section\n    return c\n"},
     {"islinebreak": true, "type": "linebreak"},
     {"type": "regular", "text": "Java has the "},
     {"iscodetext":true,"language": "java", "type": "codetext", "text": "+=x"},
@@ -459,7 +459,7 @@ var questions = [
     })}},
     {lessonName: "Types and Integers", question: {id: "Java_Python_intIDE", type: "code", data: JSON.stringify({
         language : "java",
-        startercode : ['import java.util.ArrayList;', 'import java.util.Scanner;', 'import java.io.File;', '', 'class Main {', '\tprivate static int multiply(int a, int b) {', '\t\t// MODIFY CODE FROM HERE', '', '', '', '\t\t// DO NOT MODIFY PAST THIS LINE', '\t\treturn c;', '\t}', '', ' \tpublic static void main(String[] args) throws Exception {', '\t\tString filename = args[0];', '\t\tScanner scanner = new Scanner(new File(filename));', '', '\t\tArrayList<Integer> arr = new ArrayList<>();', '\t\twhile (scanner.hasNextInt()) {', '\t\t\tarr.add(scanner.nextInt());', '\t\t}', '', '\t\tfor (int i = 0; i < arr.size() - 1; i += 2) {', '\t\t\tSystem.out.println(multiply(arr.get(i), arr.get(i+1)));', '\t\t}', '\t}', '}', ''],
+        startercode : ['import java.util.ArrayList;', 'import java.util.Scanner;', 'import java.io.File;', '', 'class Main {', '\tprivate static int multiply(int a, int b) {', '\t\t// MODIFY CODE FROM HERE', '', '', '', '\t\t// DO NOT MODIFY PAST THIS LINE', '\t\treturn c;', '\t}', '', ' \tpublic static void main(String[] args) throws Exception {', '\t\tString filename = args[0];', '\t\tScanner scanner = new Scanner(new File(filename));', '', '\t\tArrayList<Integer> arr = new ArrayList<>();', '\t\twhile (scanner.hasNextInt()) {', '\t\t\tarr.add(scanner.nextInt());', '\t\t}', '\t\tscanner.close();', '', '\t\tfor (int i = 0; i < arr.size() - 1; i += 2) {', '\t\t\tSystem.out.println(multiply(arr.get(i), arr.get(i+1)));', '\t\t}', '\t}', '}', ''],
         compilationCommand: "javac Main.java",
         executionCommand: "java Main input.txt",
         input: "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n0\n23\n35\n0\n-3\n4\n-5\n-6\n2\n-9\n",
